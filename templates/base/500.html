@@ -1,0 +1,55 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<script src="https://cdn.ravenjs.com/2.3.0/raven.min.js"></script>
+
+	{% if event_id %}
+	<script>
+		Raven.showReportDialog({
+		eventId: '{{ event_id }}',
+		dsn: '{{ public_dsn }}'
+		});
+	</script>
+	{% endif %}
+
+	<div class="content">
+		<div class="container">
+			<br class="sm-50 md-100">
+			
+			<div class="error-container">
+			
+				<div class="error-code">
+					500
+				</div> <!-- /.error-code -->
+				
+				<div class="error-details">
+					<h4>There was a problem serving the requested page.</h4>
+					
+					<br>
+					
+					<p><strong>What should you do:</strong></p>
+					
+					<ul class="icons-list">
+						<li>
+							<i class="icon-li fa fa-check-square-o"></i>
+							You can try browsing to the page again naturally. It's possible we made a few changes behind the scenes that broke your link.
+						</li>
+						<li>
+							<i class="icon-li fa fa-check-square-o"></i>
+							If you entered the url by hand, double check that it is correct.
+						</li>
+						<li>
+							<i class="icon-li fa fa-check-square-o"></i>
+							Nothing! We've been notified of the problem and will do our best to make sure it doesn't happen again!
+						</li>
+					</ul>
+				</div> <!-- /.error-details -->
+			
+			</div> <!-- /.error -->
+		
+		</div> <!-- /.container -->
+	</div> <!-- .content -->
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+		
+
+<div class="content">
+
+	<div class="container">
+	
+		<div class="row">
+		
+			<div class="col-md-3 col-sm-5">
+			
+				<div class="profile-avatar">
+					<img src="{{ url_for('static', filename='img/avatars/'+coach.slug+'.jpg') }}" class="profile-avatar-img img-responsive thumbnail" alt="Profile Image">
+				</div> <!-- /.profile-avatar -->
+				
+			</div> <!-- /.col -->
+			
+			<div class="col-md-9 col-sm-7">
+			
+				<br class="visible-xs">
+				
+				<h3>{{ coach.name }}</h3>
+				
+				<h6 class="text-muted">{{ coach.title }}</h6>
+				
+				<hr>
+				<p>{{ coach.short_bio }}</p>
+				<hr>
+				<br/>
+				
+				<div class="heading-block">
+					<h4>
+					Schedule your session
+					</h4>
+				</div> <!-- /.heading-block -->
+				
+				<br class="visible-xs">
+				<br class="visible-xs">
+			
+			</div> <!-- /.col -->
+		
+		</div> <!-- /.row -->
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				
+				
+				<!-- Calendly inline widget begin -->
+				<div class="calendly-inline-widget" data-url="https://calendly.com/listenmoneymatters/coaching-session" style="min-width:320px;height:700px;"></div>
+				<script type="text/javascript" src="https://calendly.com/assets/external/widget.js"></script>
+				<!-- Calendly inline widget end -->
+			</div>
+		</div>
+	
+	<br class="xs-20">
+	
+	</div> <!-- /.container -->
+	
+	<div id="questionModal" class="modal modal-styled fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				
+				<div class="modal-body">
+					<!-- Change the width and height values to suit you best -->
+<div class="typeform-widget" data-url="https://listenmoneymatters.typeform.com/to/gQOYR7" data-text="andrew" style="width:100%;height:600px;"></div>
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'widget.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+
+				</div> <!-- /.modal-body -->
+			
+			</div> <!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+</div> <!-- .content -->
+
+
+
+
+		
+<div class="clearfix"></div>
+		
+{% endblock %}

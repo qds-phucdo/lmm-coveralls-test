@@ -1,0 +1,76 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+		
+
+<div class="content">
+
+	<div class="container">
+
+		<div class="heading-block heading-minimal heading-center">
+			<h1>Meet the Coaches</h1>
+				<p class="lead text-center"><em>You already know who we are. We want to get to know who you are and help with your specific challenges. Schedule some time with us - we'd love to be on your team solving money problems, building awesome things and making it all look easy.</em></p>
+				
+		</div>
+	
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1"></div>
+		</div>
+		
+		
+		
+{% if coaches %}
+		<div class="row">
+	{% set count = 1 %}
+	{% for coach in coaches %}
+		{% if count == 4 %}
+		</div>
+		<div class="row">
+			{% set count = 1 %}
+		{% endif %}	
+		
+			<div class="col-sm-4">
+		
+				<div class="team-member"> 
+				
+					<div class="team-member-img">
+						<a href="{{ header.url_root }}/coach/{{ coach.slug }}"><img src="{{ url_for('static', filename='img/avatars/' + coach.slug + '.jpg') }}" class="img-responsive" alt="{{ coach.name }}"></a>
+						
+						<div class="team-member-info">
+							<span class="team-member-name">{{ coach.name }}</span>
+							<span class="team-member-title">{{ coach.title }}</span>
+						</div>
+					
+					</div> <!-- /.team-member-img -->
+				
+					<div class="team-member-caption">
+						<p>{{ coach.short_bio }}</p>             
+				
+						<!--
+						<div class="team-member-social">
+							{% if coach.facebook %}<a href="https://www.facebook.com/{{ coach.facebook }}" target="_blank" class="social-icon"><i class="fa fa-facebook"></i></a>{% endif %}	
+							{% if coach.twitter %}<a href="https://twitter.com/{{ coach.twitter }}" target="_blank" class="social-icon"><i class="fa fa-twitter"></i></a>{% endif %}	
+							{% if coach.linkedin %}<a href="https://www.linkedin.com/in/{{ coach.linkedin }}" target="_blank" class="social-icon"><i class="fa fa-linkedin"></i></a>{% endif %}	
+						</div> 
+						-->
+				
+					</div> <!-- /.team-member-caption -->
+				
+				</div> <!-- /.team-member -->
+			
+			</div> <!-- /.col -->
+				
+			{% set count = count + 1 %}
+	{% endfor %}
+		</div>
+{% endif %}
+		
+
+	</div> <!-- /.container -->
+
+</div> <!-- /.cotnent -->
+
+		
+<div class="clearfix"></div>
+		
+{% endblock %}

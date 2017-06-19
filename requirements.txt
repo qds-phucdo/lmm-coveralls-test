@@ -1,0 +1,30 @@
+# Testing
+#mock
+
+# Production Server
+gevent
+gunicorn
+
+# Full pip freeze output
+blinker==1.4
+click==6.6
+contextlib2==0.5.4
+Flask==0.11.1
+Flask-WTF==0.12
+greenlet==0.4.10
+hashids==1.1.0
+itsdangerous==0.24
+Jinja2==2.8
+logging==0.4.9.6
+MarkupSafe==0.23
+newrelic==2.72.0.52
+powerline-status==2.5.2
+psycopg2==2.6.2
+raven
+redis==2.10.5
+requests==2.5.1
+stripe==1.37.0
+urllib3==1.7.1
+Werkzeug==0.11.11
+WTForms==2.1
+xmltodict==0.10.2

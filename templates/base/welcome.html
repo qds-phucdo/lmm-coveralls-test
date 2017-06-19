@@ -1,0 +1,40 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="container">
+			
+			<center>
+				<h1 style="font-size: 65px; padding-top: 40px;">🏠 Welcome Aboard!</span></h1>
+				
+				<h4>Let's get started evaluating a property.</h4>
+				
+				{% include '/property/property-search-simple.html' with context %}	
+				
+				<p>
+					<h4>Too much pressure? Try evaluating a popular property from Roofstock:</h4>
+					
+					<h4>						
+						{% if popular_properties is defined %}
+							{% for property in popular_properties %}
+							<a href="/property/{{ property['property_name'] }}/{{ property['zpid'] }}/overview">
+								{{ property['property_name']|pretty_address }}
+							</a><br/>
+							{% endfor %}
+						{% else %}
+						<a href="/property/901-Log-Cabin-Rd_Charlotte-NC_28213/6190232/overview">
+							901 Log Cabin Road, Charlotte, NC 28213
+						</a>
+						{% endif %}
+					</h4>
+				</p>
+			
+			</center>
+			
+			
+			
+		</div> <!-- /.container -->
+	</div> <!-- .content -->
+
+{% endblock %}

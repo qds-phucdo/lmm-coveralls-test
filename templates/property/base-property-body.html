@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+	<title>{{ header.title }}</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Listen Money Matters">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	{% if profile.user_id not in [1] %}{% include '/base/analytics.html' with context %}{% endif %}
+	{% if header.active == "login" or profile.user_id in [0, -1] %}
+	<meta name="robots" content="noindex">
+	<script src="//cdn.auth0.com/js/lock/10.13.0/lock.min.js"></script>
+	<script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="{{ url_for('static', filename='css/auth.css') }}" rel="stylesheet">
+
+	<script>
+		var AUTH0_CLIENT_ID = '{{ auth0.AUTH0_CLIENT_ID }}';
+		var AUTH0_DOMAIN = '{{ auth0.AUTH0_DOMAIN }}';
+		var AUTH0_CALLBACK_URL = '{{ auth0.AUTH0_CALLBACK_URL if auth0.AUTH0_CALLBACK_URL else "http://localhost:5000/callback" }}';
+	</script>
+	{% endif %}
+
+	<!-- Google Font -->
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,600italic">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Oswald:400,300,700">
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,900" type="text/css" media="all">
+
+	<!-- Font Awesome CSS -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	{% if header.active in ["overview", "compare"] %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-switch.min.css') }}">
+	{% endif %}
+	<!--  menu mobile -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" >
+
+
+	<!-- App CSS -->
+	{% if header.active in ["index", "coaching", "coach"] %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/landing-page.css') }}">
+	<link href="{{ url_for('static', filename='css/animate.min.css') }}" rel="stylesheet">
+	{% endif %}
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/property.css') }}">
+	{% if header.active in ["property", "search"] %}<link rel="stylesheet" href="{{ url_for('static', filename='css/property-home.css') }}">{% endif %}
+	{% if header.active == "account" %}
+	<link href="{{ url_for('static', filename='css/pricing.css') }}" rel="stylesheet">
+	{% endif %}
+	{% if header.active == "member-exclusives" %}
+	<link href="{{ url_for('static', filename='css/exclusives.css') }}" rel="stylesheet">
+	{% endif %}
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- Heap -->
+	<script type="text/javascript">
+		window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=(r?"https:":"http:")+"//cdn.heapanalytics.com/js/heap-"+e+".js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n);for(var o=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","removeEventProperty","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=o(p[c])};
+
+		if (window.location.href.includes('listenmoneymatters')) {
+			heap.load("917627145"); //Prod
+		} else {
+			heap.load("908683256"); //Dev
+		}
+
+	{% if profile.email %}
+		heap.identify('{{ profile.email }}');
+		heap.addUserProperties({'Tier': '{{ profile.access_level }}'});
+		{% if profile.utm_source or profile.utm_medium or profile.utm_campaign %}
+		heap.addUserProperties({'utm_source': '{{ profile.utm_source }}'});
+		heap.addUserProperties({'utm_medium': '{{ profile.utm_medium }}'});
+		heap.addUserProperties({'utm_campaign': '{{ profile.utm_campaign }}'});
+		{% endif %}
+		{% if saved_property_count %}heap.addUserProperties({'Saved Properties': '{{ profile.access_level }}'});{% endif %}
+	{% else %}
+		{% if profile.utm_source or profile.utm_medium or profile.utm_campaign %}
+		heap.track('marketing', {utm_source: '{{ profile.utm_source }}', utm_medium: '{{ profile.utm_medium }}', utm_campaign: '{{ profile.utm_campaign }}'});
+		{% endif %}
+	{% endif %}
+	</script>
+
+</head>
+
+<body class="{% if header.active == "login" %}login{% endif %}{% if header.active in ["property", "search", "group"] %} layout-fixed {% endif %}">
+	<script src="//fast.appcues.com/23689.js"></script>
+	<div id="o-wrapper">
+		<div id="wrapper">
+
+			{% include '/property/base-property-header.html' with context %}
+
+			{% if header.active not in ["login", "signup", "index", "plans_billing"] %}
+				{% include '/property/base-property-mainnav.html' with context %}
+			{% endif %}
+
+			{% block content %}{% endblock %}
+
+	</div> <!-- /#wrapper -->
+
+	<div id="c-mask" class="c-mask"></div><!-- /c-mask -->
+
+	{% if header.active in ["index", "realestate", "coaching", "coach"] %}
+	<footer class="footer">
+
+		<div class="copyright">
+		<!-- COPYRIGHT -->
+			Copyright © 2017 Listen Money Matters. All Rights Reserved. <a href="https://www.listenmoneymatters.com/privacy-policy/" rel="nofollow">Privacy Policy</a> and <a href="https://www.listenmoneymatters.com/disclosure/" rel="nofollow">Disclosure.</a>
+		</div>
+
+	</footer>
+	{% endif %}
+
+	<!-- Core JS -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	{% if header.active in ["overview", "compare"] and (profile.user_id not in [0, -1]) %}<script src="{{ url_for('static', filename='js/bootstrap-switch.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.css') }}">
+	<script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}"></script>
+	<script>
+		$( ".pc-datepicker" ).datetimepicker({
+			format: 'MM/DD/YYYY'
+		});
+		$( ".py-datepicker" ).datetimepicker({
+			format: 'MM/DD/YYYY'
+		});
+		$("[name='enable-mortgage']").bootstrapSwitch();
+		$('.mortgage_toggle').each(function(i, obj) {
+			if($(obj).bootstrapSwitch('state') === false) {
+				$(obj).closest('table').find('.mortgage_item').hide();
+			}
+		});
+		// checkbox
+		$('.purchase-detail').hide()
+		$('.purchase-checkbox input').change(function() {
+	        if($(this).is(':checked')) {
+	            $('.purchase-detail').fadeIn("slow")
+	        } else {
+				$('.purchase-detail').fadeOut("slow")
+			}
+    	});
+	</script>{% endif %}
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
+
+	{% if header.active != "login" and header.active != "index" and (profile.user_id not in [0, -1]) %}
+	<!-- Intercom FTW -->
+	<script>
+		window.intercomSettings = {
+			app_id: "txpsgi1y",
+			user_id: "{{ profile.email }}",
+			email: "{{ profile.email }}",
+			{% if saved_property_count %}"saved_properties": {{ saved_property_count.num }},{% endif %}
+			user_hash: "{{ profile.user_hash }}"
+		};
+	</script>
+	<script>
+	    Appcues.identify("{{ profile.email }}", {
+	        name: "{{ profile.email }}",
+	        email: "{{ profile.email }}",
+	        created_at: {{ profile.create_timestamp }},
+	        {% if saved_property_count %}saved_properties: {{ saved_property_count.num }},{% endif %}
+	        tier: "{{ profile.access_level }}"
+	    });
+</script>
+	<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/txpsgi1y';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
+	<script>Intercom('trackEvent', 'visited-{{ header.active }}-page');</script>
+	{% endif %}
+	<!--  menu mobile -->
+	<script src="{{ url_for('static', filename='js/menu.min.js') }}"></script>
+	<script>
+
+	var slideRight = new Menu({
+		wrapper: '#o-wrapper',
+		type: 'slide-right',
+		menuOpenerClass: '.c-button',
+		maskId: '#c-mask'
+	});
+
+	var slideRightBtn = document.querySelector('#c-button--slide-right');
+	slideRightBtn.addEventListener('click', function(e) {
+		e.preventDefault;
+		slideRight.open();
+	});
+
+	function showMenu1(item) {
+		if($(item).parent().find('> ul').hasClass('open')) {
+			$(item).parent().find('> ul').toggle("fast").removeClass("open");
+		}else {
+			$(item).parent().find('> ul').show("fast").addClass("open");
+		}
+
+	}
+	function showMenu2(item) {
+		if($(item).parent().find('> ul').hasClass('open')) {
+			$(item).parent().find('> ul').toggle("fast").removeClass("open");
+		}else {
+			$(item).parent().find('> ul').show("fast").addClass("open");
+		}
+	}
+
+
+
+	</script>
+	<!-- App JS -->
+	<script src="{{ url_for('static', filename='js/global-core.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/global-helpers.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/global-property.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/places.js') }}"></script>
+	{% if header.active in ["index", "realestate"] %}<script src="{{ url_for('static', filename='js/landing-page.js') }}"></script>{% endif %}
+	<script src="{{ url_for('static', filename='js/z.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/gmap.js') }}"></script>
+	{% if header.active == "mortgage" %}
+		<link href="{{ url_for('static', filename='css/property-mortgage.css') }}" rel="stylesheet">
+		<script type="text/javascript" src="{{ url_for('static', filename='js/d3.v4.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/d3-tip.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+		<script type="text/javascript">{% include '/property/js/mortgage.js' with context %}</script>
+	{% endif %}
+	{% if header.active == "projections" %}
+		<link href="{{ url_for('static', filename='css/property-projections.css') }}" rel="stylesheet">
+		<script type="text/javascript" src="{{ url_for('static', filename='js/d3.v4.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+		<script type="text/javascript">{% include '/property/js/projections.js' with context %}</script>
+	{% endif %}
+	{% if (profile.user_id not in [0, -1]) or header.active == "index" %}<script src="{{ url_for('static', filename='js/pmt.js') }}"></script>{% endif %}
+
+	{% if header.active in ["account"] %}
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+	<!-- <script src="{{ url_for('static', filename='js/payment.js') }}"></script> -->
+	<script>
+		var form;
+		var stripe_public_key;
+
+		if (window.location.href.includes('stg')) {
+			stripe_public_key = "pk_test_X6yYhJKHAWkDDRcPwr9pwHEM";
+		}
+		else if (window.location.href.includes('listenmoneymatters')) {
+			stripe_public_key = "pk_live_TVyiirDwMHphmVC8Jw79Jtcn";
+		} else {
+			stripe_public_key = "pk_test_X6yYhJKHAWkDDRcPwr9pwHEM";
+		}
+
+		var handler = StripeCheckout.configure({
+			key: stripe_public_key,
+			{% if header.active == "account" %}
+			image: '/static/img/lmm_icon.jpg',
+			{% else %}
+			image: '/static/img/avatars/{{ coach.slug }}.jpg',
+			{% endif %}
+			locale: 'auto',
+			zipCode: true,
+			token: function(token) {
+				var $input = $('<input type=hidden name=stripeToken />').val(token.id);
+				form.append($input).submit()
+			}
+		});
+
+		{% if header.active == "account" %}
+		$('#proplan').on('click', function(e) {
+			var metadata = {
+			  price: '$14.00',
+			};
+			Intercom('trackEvent', 'clicked-subscribe-pro', metadata);
+			// Open Checkout with further options:
+			handler.open({
+				name: 'Listen Money Matters Pro',
+				email: '{{ profile.email }}',
+				description: 'Tools + Community + Extras',
+				amount: 1400,
+				zipCode: true
+			});
+			e.preventDefault();
+			form = $(this).closest("form");
+		});
+
+		$('#proplanyearly').on('click', function(e) {
+			var metadata = {
+			  price: '$96.00',
+			};
+			Intercom('trackEvent', 'clicked-subscribe-pro-yearly', metadata);
+			// Open Checkout with further options:
+			handler.open({
+				name: 'Listen Money Matters Pro',
+				email: '{{ profile.email }}',
+				description: 'Tools + Community + Extras',
+				amount: 9600,
+				zipCode: true
+			});
+			e.preventDefault();
+			form = $(this).closest("form");
+		});
+
+		$('#updateCard').on('click', function(e) {
+			Intercom('trackEvent', 'clicked-update-card');
+			// Open Checkout with further options
+			handler.open({
+				name: 'Listen Money Matters Pro',
+				email: '{{ profile.email }}',
+				panelLabel: 'Update Card',
+				id: '{{ profile.stripe_id }}',
+				zipCode: true,
+			});
+			e.preventDefault();
+			form = $(this).closest("form");
+		});
+		// show confirm
+		$('#cancelSub').click(function(event){
+			if (confirm("Are you sure cancel Membership ?") == true) {
+				$('#fm-cancelsub').submit();
+			}
+		});
+
+		{% endif %}
+
+		{% if header.active == "coach" %}
+		$('#schedule_coach').on('click', function(e) {
+			Intercom('trackEvent', 'loaded-schedule-session');
+			// Open Checkout with further options
+			handler.open({
+				name: '{{ coach.name}}',
+				description: 'Schedule a session.',
+				email: '{{ profile.email }}',
+				amount: 18500,
+				zipCode: true
+			});
+			e.preventDefault();
+			form = $(this).closest("form");
+		});
+		{% endif %}
+
+		// Close Checkout on page navigation:
+		$(window).on('popstate', function() {
+			handler.close();
+		});
+	</script>
+	{% endif %}
+
+	{% if header.active in ["property", "search", "group"] %}
+	<script src="{{ url_for('static', filename='js/property-home.js') }}"></script>
+	{% endif %}
+
+	{% if header.active == "overview" and (profile.user_id in [0, -1]) %}
+	<script>
+		$('#createAccountModal').modal({backdrop: 'static', keyboard: false});
+	</script>
+	{% endif %}
+
+	{% if header.active == "group" %}
+	<script src="{{ url_for('static', filename='js/parsley.min.js') }}"></script>
+	<script>
+		$("#new-group").keyup(function() {
+			if($( 'form' ).parsley().isValid()) {
+				$('#update-group-button').prop('disabled', false);
+			}
+			else {
+				$('#update-group-button').prop('disabled', true);
+			}
+		});
+	</script>
+	{% endif %}
+
+	{% if header.active == "overview" %}
+	<script src="{{ url_for('static', filename='js/hashids.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/parsley.min.js') }}"></script>
+	<script>
+		$("#new-group").keyup(function() {
+			if($( 'form' ).parsley().isValid()) {
+				$('#create-group-button').prop('disabled', false);
+			}
+			else {
+				$('#create-group-button').prop('disabled', true);
+			}
+		});
+	</script>
+	{% endif %}
+	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAua6FHAl3yZRh9c7cc7jxS3g_tnmdnJ8U&libraries=places&callback=google_places_callback" async defer></script>
+	<!-- Custome Marker Google Map -->
+	<script src="{{ url_for('static', filename='js/CustomGoogleMapMarker.js') }}"></script>
+
+	{% if header.active in ['mortgage'] %}
+	<!-- Plugin JS -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/excanvas.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.pie.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.resize.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.time.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.categories.min.js"></script>
+	{% endif %}
+
+</body>
+</html>

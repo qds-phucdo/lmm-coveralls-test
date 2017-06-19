@@ -1,0 +1,431 @@
+	<header class="navbar {% if header.active == "index"%}landing_header{% endif %}" role="banner">		
+
+			<div class="navbar-header">
+				{% if header.active not in ["signup"] %}
+				<button class="navbar-toggle" id="c-button--slide-right" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<i class="fa fa-bars"></i>
+				</button>
+				{% endif %}
+
+				<a href="https://pro.listenmoneymatters.com" class="navbar-brand navbar-brand-img">
+					<img src="https://www.listenmoneymatters.com/wp-content/themes/LMMv4/images/logo_v4.png" alt="Listen Money Matters Pro">
+				</a>
+			</div> <!-- /.navbar-header -->
+			<!-- menu mobile -->
+			<nav id="c-menu--slide-right" class="c-menu c-menu--slide-right visible-xs menu-mobile {% if header.active == "index"%}landing_header{% endif %}" role="navigation">
+				<button class="c-menu__close"><i class="fa fa-times" aria-hidden="true"></i></button>
+				<ul class="c-menu__items">
+				{% if header.active in ["index", "login"] or (profile.user_id in [0]) %}
+					<li class="c-menu__item">
+						<a class="c-menu__link" href="https://www.listenmoneymatters.com/community/">
+							<i class="fa fa-group"></i>
+							&nbsp;&nbsp;Community
+						</a>
+					</li>
+
+					<li class="c-menu__item">
+						<a class="c-menu__link" href="/login">
+							Login
+						</a>
+					</li>
+
+					<li class="c-menu__item focus-nav">
+						<a class="c-menu__link" href="{{ header.url_root }}/signup">Start Your Free Trial</a>
+					</li>
+
+				{% endif %}
+				{% if header.active not in ["login", "signup", "index", "welcome"] and profile.user_id not in [0] %}
+					{% if profile.access_level == "basic" %}
+					<li class="c-menu__item" {% if header.active == "account" %}class=" active"{% endif %}>
+						<a class="c-menu__link" href="{{ header.url_root }}/account"
+							onclick="ga('send', 'event', 'Join Pro', 'Header', '/account', 1);">
+							<i class="fa fa-star"></i>
+							&nbsp;&nbsp;Join
+						</a>
+					</li>
+					{% endif %}
+
+					<li class="c-menu__item">
+						<a class="c-menu__link" href="https://help.listenmoneymatters.com/" target="_blank">
+							<i class="fa fa-life-ring"></i>
+							&nbsp;&nbsp;Help
+						</a>
+					</li>
+
+					<li class="c-menu__item">
+						<a onclick="showMenu1(this)" href="#" class="c-menu__link">
+							<i class="fa fa-history"></i>&nbsp;&nbsp;Recent
+							<span class="arrow-down"><i class="fa fa-caret-down"></i></span>
+						</a>
+						<ul>
+						{% if (header.property_history is defined) and header.property_history %}
+							{% for property in header.property_history %}
+							{% set url = property['action_text'].split('|') %}
+							<li class="c-menu__item">
+								<a href="/property/{{ url[0] }}/{{ url[1] }}/overview">
+									{{ url[0]|pretty_address }}
+								</a>
+							</li>
+							{% endfor %}
+						{% else %}
+							<li>
+								<a style="font-style: italic;">No properties viewed yet!</a>
+							</li>
+						{% endif %}
+						</ul>
+
+					</li>
+					<li class="c-menu__item">
+						<a onclick="showMenu1(this)" href="#" class="c-menu__link">
+							<i class="fa fa-th-list"></i>&nbsp;&nbsp;Groups
+							<span class="arrow-down"><i class="fa fa-caret-down"></i></span>
+						</a>
+						{% if (header.property_groups is defined) and header.property_groups %}
+						<ul >
+							{% for group in header.property_groups %}
+							<li>
+								<a href="/property/group/{{ group['portfolio_name'].lower()|replace(' ', '_') }}/">
+									<i class="fa fa-line-chart "></i>
+									{{ group['portfolio_name'] }}
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+
+					</li>
+					<li class="c-menu__item"><a href="https://www.listenmoneymatters.com/community/" class="c-menu__link"><i class="fa fa-group"></i>&nbsp;&nbsp;Community</a></li>
+					<li class="c-menu__item">
+						<a href="#" class="c-menu__link" onclick="showMenu1(this)">
+						<img src="{{ profile.picture or url_for('static', filename='img/avatar.jpg') }}" class="navbar-profile-avatar-mobile" alt="">
+						<span class="arrow-down"><i class="fa fa-caret-down"></i></span>
+						</a>
+						<ul>
+							{% if profile.access_level != "basic" %}
+							<li>
+								<a href="{{ header.url_root }}/member-exclusives">
+									<i class="fa fa-star"></i>
+									&nbsp;&nbsp;Exclusives
+								</a>
+							</li>
+							{% endif %}
+							<li>
+								<a href="{{ header.url_root }}/product-updates">
+									&nbsp;&nbsp;Product Updates
+								</a>
+							</li>
+	
+							<li>
+								<a href="{{ header.url_root }}/account">
+									&nbsp;&nbsp;My Account
+								</a>
+							</li>
+	
+							<li class="divider"></li>
+	
+							<li>
+								<a href="{{ header.url_root }}/logout">
+									&nbsp;&nbsp;Logout
+								</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
+				</ul>
+			</nav>
+			<!-- end menu mobile -->
+			<nav class="collapse navbar-collapse hidden-xs" role="navigation">
+
+				{% if header.active == "portfolios" %}
+				<form class="navbar-form navbar-search-form navbar-left">
+					<div class="form-group">
+						<input id="autocomplete" class="form-control navbar-search-field input-md mainnav-search-query" placeholder="Enter an address" onFocus="geolocate()" type="text" style="width: 170px;"></input>
+					</div>
+					<div style="display: none;">
+					    <table id="address">
+							<tr>
+								<td class="label">Street address</td>
+								<td class="slimField">
+									<input class="field" id="street_number" disabled="true"></input>
+								</td>
+								<td class="wideField" colspan="2">
+									<input class="field" id="route" disabled="true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">City</td>
+								<td class="wideField" colspan="3">
+									<input class="field" id="locality" disabled="true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">State</td>
+								<td class="slimField">
+									<input class="field" id="administrative_area_level_1" disabled="true"></input>
+								</td>
+								<td class="label">Zip code</td>
+								<td class="wideField">
+									<input class="field" id="postal_code" disabled="true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Country</td>
+								<td class="wideField" colspan="3">
+									<input class="field" id="country" disabled="true"></input>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+				{% endif %}
+
+				{% if 0 == 1 %}
+				{% if header.active not in ["login", "signup", "index"] and profile.user_id not in [0, -1] %}
+				<ul class="nav navbar-nav navbar-left">
+					<li class="dropdown navbar-notification">
+						<a href="./page-notifications.html" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-bell navbar-notification-icon"></i>
+							<span class="visible-xs-inline">&nbsp;Notifications</span>
+							<b class="badge badge-primary">3</b>
+						</a>
+
+						<div class="dropdown-menu">
+							<div class="dropdown-header">&nbsp;Notifications</div>
+							<div class="notification-list">
+
+								<a href="./page-notifications.html" class="notification">
+									<span class="notification-icon"><i class="fa fa-cloud-upload text-primary"></i></span>
+									<span class="notification-title">Notification Title</span>
+									<span class="notification-description">Praesent dictum nisl non est sagittis luctus.</span>
+									<span class="notification-time">20 minutes ago</span>
+								</a> <!-- / .notification -->
+
+								<a href="./page-notifications.html" class="notification">
+									<span class="notification-icon"><i class="fa fa-ban text-secondary"></i></span>
+									<span class="notification-title">Notification Title</span>
+									<span class="notification-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</span>
+									<span class="notification-time">20 minutes ago</span>
+								</a> <!-- / .notification -->
+
+								<a href="./page-notifications.html" class="notification">
+									<span class="notification-icon"><i class="fa fa-warning text-tertiary"></i></span>
+									<span class="notification-title">Storage Space Almost Full!</span>
+									<span class="notification-description">Praesent dictum nisl non est sagittis luctus.</span>
+									<span class="notification-time">20 minutes ago</span>
+								</a> <!-- / .notification -->
+
+								<a href="./page-notifications.html" class="notification">
+									<span class="notification-icon"><i class="fa fa-ban text-danger"></i></span>
+									<span class="notification-title">Sync Error</span>
+									<span class="notification-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</span>
+									<span class="notification-time">20 minutes ago</span>
+								</a> <!-- / .notification -->
+
+							</div> <!-- / .notification-list -->
+
+							<a href="./page-notifications.html" class="notification-link">View All Notifications</a>
+
+						</div> <!-- / .dropdown-menu -->
+					</li>
+
+					<li class="dropdown navbar-notification empty">
+						<a href="./page-notifications.html" class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-envelope navbar-notification-icon"></i>
+							<span class="visible-xs-inline">&nbsp;Messages</span>
+						</a>
+
+						<div class="dropdown-menu">
+							<div class="dropdown-header">Messages</div>
+								<div class="notification-list">
+
+									<h4 class="notification-empty-title">No messages yet.</h4>
+
+									<p class="notification-empty-text">Check out what other makers are doing on Explore!</p>
+
+
+								</div>
+
+							<a href="./page-notifications.html" class="notification-link">View All Messages</a>
+
+						</div> <!-- / .dropdown-menu -->
+
+					</li>
+				</ul>
+				{% endif %}
+				{% endif %}
+
+				<ul class="nav navbar-nav navbar-right">
+
+				{% if header.active in ["index", "login"] or (profile.user_id in [0]) %}
+
+					<li>
+						<a href="https://www.listenmoneymatters.com/community/">
+							<i class="fa fa-group"></i>
+							&nbsp;&nbsp;Community
+						</a>
+					</li>
+
+					<li>
+						<a href="/login">
+							Login
+						</a>
+					</li>
+
+					<li class="focus-nav">
+						<a href="{{ header.url_root }}/signup">Start Your Free Trial</a>
+					</li>
+
+				{% endif %}
+
+				{% if header.active not in ["login", "signup", "index", "welcome"] and profile.user_id not in [0] %}
+
+					{% if profile.access_level == "basic" %}
+					<li {% if header.active == "account" %}class="active"{% endif %}>
+						<a href="{{ header.url_root }}/account"
+							onclick="ga('send', 'event', 'Join Pro', 'Header', '/account', 1);">
+							<i class="fa fa-star"></i>
+							&nbsp;&nbsp;Join
+						</a>
+					</li>
+					{% endif %}
+
+					<li {% if header.active == "help" %}class="active"{% endif %}>
+						<a href="https://help.listenmoneymatters.com/" target="_blank">
+							<i class="fa fa-life-ring"></i>
+							&nbsp;&nbsp;Help
+						</a>
+					</li>
+
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+							<i class="fa fa-history"></i>
+							&nbsp;&nbsp;Recently Viewed
+							<i class="fa fa-caret-down"></i>
+						</a>
+								
+						<ul class="dropdown-menu noclick1" role="menu">
+						{% if (header.property_history is defined) and header.property_history %}
+							{% for property in header.property_history %}
+							{% set url = property['action_text'].split('|') %}
+							<li>
+								<a href="/property/{{ url[0] }}/{{ url[1] }}/overview">
+									{{ url[0]|pretty_address }}
+								</a>
+							</li>
+							{% endfor %}
+						{% else %}
+							<li>
+								<a style="font-style: italic;">No properties viewed yet!</a>
+							</li>
+						{% endif %}								
+						</ul>
+					</li>
+					
+					<li  class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+							<i class="fa fa-th-list"></i>
+							&nbsp;&nbsp;Groups
+							<i class="fa fa-caret-down"></i>
+						</a>
+						
+						{% if (header.property_groups is defined) and header.property_groups %}
+						<ul class="dropdown-menu noclick1" role="">
+							{% for group in header.property_groups %}
+							<li>
+								<a href="/property/group/{{ group['portfolio_name'].lower()|replace(' ', '_') }}/">
+									{{ group['portfolio_name'] }}
+								</a>
+							</li>
+							{% endfor %}				
+						</ul>
+						{% endif %}	
+					</li>
+
+					<li>
+						<a href="https://www.listenmoneymatters.com/community/">
+							<i class="fa fa-group"></i>
+							&nbsp;&nbsp;Community
+						</a>
+					</li>
+
+					{% if profile.nickname %}
+					<li class="dropdown navbar-profile">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+							<img src="{{ profile.picture or url_for('static', filename='img/avatar.jpg') }}"
+								class="navbar-profile-avatar" alt="">
+							<!-- <span class="">{{ profile.nickname }} &nbsp;</span> -->
+							<i class="fa fa-caret-down"></i>
+						</a>
+
+						<ul class="dropdown-menu noclick1" role="menu">
+
+							<!--
+							<li>
+								<a href="{{ header.url_root }}/profile">
+									<i class="fa fa-user"></i>
+									&nbsp;&nbsp;My Profile
+								</a>
+							</li>
+							-->
+							
+							{% if profile.access_level != "basic" %}
+							<li {% if header.active == "member-exclusives" %}class="active"{% endif %}>
+								<a href="{{ header.url_root }}/member-exclusives">
+									<i class="fa fa-star"></i>
+									&nbsp;&nbsp;Exclusives
+								</a>
+							</li>
+							{% endif %}
+
+							<li>
+								<a href="{{ header.url_root }}/product-updates">
+									&nbsp;&nbsp;Product Updates
+								</a>
+							</li>
+
+							<li>
+								<a href="{{ header.url_root }}/account">
+									&nbsp;&nbsp;My Account
+								</a>
+							</li>
+
+							<li class="divider"></li>
+
+							<li>
+								<a href="{{ header.url_root }}/logout">
+									&nbsp;&nbsp;Logout
+								</a>
+							</li>
+
+						</ul>
+
+					</li>
+					{% else %}
+					<li class="focus-nav">
+						<a href="{{ header.url_root }}/signup">Start Your Free Trial</a>
+					</li>
+					{% endif %}
+
+					<!--
+					<li>
+						<a>
+							&nbsp;&nbsp;
+							<i class="fa fa-search"></i>
+							&nbsp;&nbsp;
+						</a>
+					</li>
+					-->
+
+				{% endif %}
+
+
+
+				</ul>
+
+
+			</nav>
+
+
+
+	</header>

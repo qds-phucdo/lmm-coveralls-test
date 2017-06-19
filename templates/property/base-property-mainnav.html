@@ -1,0 +1,177 @@
+	{% if profile.access_level == "basic" and header.active not in ['account', 'property', 'coach', 'coaching', 'welcome'] %}	
+	<div class="trial_bar">
+		Your free trial ends {{ profile.subscription.month }} {{ profile.subscription.day }}. <a href="{{ header.url_root }}/account" onclick="ga('send', 'event', 'Join Pro', 'Trial Bar', '/account', 1);">Become a Founding Member</a> and we'll hook you up.
+	</div>
+	{% endif %}
+
+	<div class="mainnav ">
+
+		<div class="container" id="full-width-container">
+
+			<nav class="mainnav-collapse propertynav" role="navigation">
+
+				{% if header.active in ["overview", "mortgage", "compare", "group", "projections"] %}
+				<div class="mainnav-form">
+					<input type="text" id="autocomplete" name="search_query" class="form-control input-md mainnav-search-query" onFocus="geolocate()" placeholder="Enter an address"  autocomplete="off"></input>
+					<button class="btn btn-sm mainnav-form-btn"><i id="search_icon" class="fa fa-search"></i></button>
+					<div style="display: none;">
+					    <table id="address">
+							<tr>
+								<td class="label">Street address</td>
+								<td class="slimField">
+									<input type="hidden" class="field" name="street_number" id="street_number"></input>
+								</td>
+								<td class="wideField" colspan="2">
+									<input type="hidden" class="field" name="route" id="route"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">City</td>
+								<td class="wideField" colspan="3">
+									<input type="hidden" class="field" name="locality" id="locality"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">City Short</td>
+								<td class="wideField" colspan="3">
+									<input class="field" id="locality_short"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">State</td>
+								<td class="slimField">
+									<input type="hidden" class="field" name="state" id="administrative_area_level_1"></input>
+								</td>
+								<td class="label">Zip code</td>
+								<td class="wideField">
+									<input type="hidden" class="field" name="postal_code" id="postal_code"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Country</td>
+								<td class="wideField" colspan="3">
+									<input type="hidden" class="field" name="country" id="country"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Country Short</td>
+								<td class="wideField" colspan="3">
+									<input class="field" id="country_short"></input>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				{% endif %}
+	
+				{% if header.active in ["overview", "mortgage", "compare", "projections"] and (p or p1) %}
+				<ul class="mainnav-menu">	
+					{% if profile.user_id not in [0, -1] %}
+					<li class="dropdown {% if header.active == "overview" %}active{% endif %}">
+						<a href="{% if p %}
+									./overview
+								{% else %}
+									/property/{{ p1.address }}/{{ p1.zillow.zpid }}/overview
+								{% endif %}
+						">
+							Overview
+						</a>
+					</li>
+					
+					<li class="dropdown {% if header.active == "mortgage" %}active{% endif %}">
+						<a href="{% if p %}
+									./mortgage
+								{% else %}
+									/property/{{ p1.address }}/{{ p1.zillow.zpid }}/mortgage
+								{% endif %}
+						">
+							Mortgage
+						</a>
+					</li>
+					
+					<li class="dropdown {% if header.active == "projections" %}active{% endif %}">
+						<a href="{% if p %}
+									./projections
+								{% else %}
+									/property/{{ p1.address }}/{{ p1.zillow.zpid }}/projections
+								{% endif %}
+						">
+							Projections
+						</a>
+					</li>
+					
+					<li class="dropdown {% if header.active == "compare" %}active{% endif %}">
+						<a href="{% if p %}
+									{% if p.property_id %}
+										{{ header.url_root }}/property/compare/{{ p.property_id }}
+									{% else %}
+										{{ header.url_root }}/property/compare/{{ p.address }}
+									{% endif%}
+								{% else %}
+								{% endif %}">
+							Compare
+						</a>
+					</li>
+					
+					<!--
+					<li class="dropdown {% if header.active == "projections" %}active{% endif %}">
+						<a href="./projections">
+							Projections
+						</a>
+					</li>
+					
+					<li class="dropdown {% if header.active == "research" %}active{% endif %}">
+						<a href="./research">
+							Research
+						</a>
+					</li>
+					
+					<li class="dropdown {% if header.active == "manage" %}active{% endif %}">
+						<a href="./manage">
+							Manage
+						</a>
+					</li>
+					-->
+					{% else %}
+					<li class="dropdown">
+						<a href="/login">Create a free account to research, evaluate and track rental properties.</a>
+					</li>
+					{% endif %}
+										
+				</ul>
+				{% elif header.active == "compare" %}
+				<ul class="mainnav-menu">	
+					<li class="dropdown active">
+						<a href="#">
+							Property Comparison
+						</a>
+					</li>				
+				</ul>
+				{% elif header.active == "group" %}
+				<ul class="mainnav-menu">	
+					<li class="dropdown active">
+						<a>{{ property_group|replace('_', ' ')|title }}</a>
+					</li>
+					{% if property_group != "my_saved_properties" %}
+					<li>
+						<div class="learn-button">
+							<a href="#groupSettings" data-toggle="modal" id="groupSettingsButton" class="btn btn-navconfig">
+								<i class="fa fa-gears"></i>&nbsp;&nbsp;Settings
+							</a>
+						</div>
+					</li>
+					{% endif %}				
+				</ul>
+				{% endif %}
+
+			</nav>
+			
+
+		</div> <!-- /.container -->
+
+	</div> <!-- /.mainnav -->
+	
+	{% if header.active not in ["property", "search"] %}
+	<!-- Application Alerts -->
+	<div class="container"><div id="message">{{ header.message|safe }}</div></div>
+	{% endif %}

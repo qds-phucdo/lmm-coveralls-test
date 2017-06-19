@@ -1,0 +1,35 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+		<center>
+			<img src="https://www.listenmoneymatters.com/wp-content/themes/LMMv4/images/login_header.png" 
+			alt="Listen Money Matters Pro" border="0" 
+			id="headerImage">
+			<p>
+				<h2>Log In</h2>
+				<p class="signup">Need an account? <a href="/signup">Create an account.</a></p>
+			</p><br/>
+		</center>
+
+		<div id="root" class="auth0-wrap"></div>
+		<script>
+			var options = {
+				container: 'root',
+				auth: {
+					redirectUrl: AUTH0_CALLBACK_URL,
+					responseType: 'code',
+					params: {
+						scope: 'openid email'
+					}
+				},
+				logo: 'https://www.listenmoneymatters.com/wp-content/themes/LMMv4/images/login_header.png',
+				socialButtonStyle: 'big',
+				allowSignUp: false
+			}
+			var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, options);
+		   lock.show();
+		</script>
+		<br/><br/><br/>
+
+{% endblock %}

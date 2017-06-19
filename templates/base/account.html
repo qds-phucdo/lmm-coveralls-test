@@ -1,0 +1,229 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	{% if profile.access_level == "basic" %}
+  	<div class="classic_featured">
+	  	<h1>Become a Founding Member</h1>
+	  	<div class="desc">We've got big plans. Sign up now and your price will never go up.</div>
+  	</div>
+
+  	<div class="container">
+	  	<div class="flex-container">
+			<div class="content">
+				<div class="banner" style="line-height: 56px;">
+					<b>Limited Time Offer!</b> - 42% Discount
+				</div>
+				<div class="price-details-container">
+					<div class="package-name">Annual Membership</div>
+					<div class="package-price"><span class="ds">$</span><span class="price">8</span><span class="mo">/mo</span></div>
+					<form action="/charge" method="post">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+						<input type="hidden" name="tier" value="proyearly" />
+						<button id="proplanyearly" class="btn btn-success">Subscribe</button>
+					</form>
+				</div>
+			</div>
+			<div class="content">
+				<div class="banner no-show"></div>
+				<div class="price-details-container">
+					<div class="package-name">Monthly Membership</div>
+					<div class="package-price"><span class="ds">$</span><span class="price">14</span><span class="mo">/mo</span></div>
+					<form action="/charge" method="post">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+						<input type="hidden" name="tier" value="pro" />
+						<button id="proplan" class="btn btn-success btn-hollow">Subscribe</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="container space-bottom">
+
+			<h2 class="join_header">What You Get</h2>
+
+			<div class="join_row">
+				<div class="join_why_left community_icon">
+					<h3><i class="fa fa-area-chart"></i>&nbsp;&nbsp;Wealth Building Tools</h3>
+					<b>Research, evaluate and track rental properties.</b> We've also got <i>a lot more cooking</i> that will help you track and build wealth outside of real estate.
+				</div>
+
+				<div class="join_why_right expert_icon">
+					<h3><i class="fa fa-group"></i>&nbsp;&nbsp;A Supportive Community</h3>
+					From Business Building to Budget Meals, you'll be able to <b>bounce ideas off of other like-minded people.</b> See how others are building wealth and get feedback on what you're doing.
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+			<div class="join_row">
+				<div class="join_why_left share_icon">
+					<h3><i class="fa fa-star"></i>&nbsp;&nbsp;Member Exclusives</h3>
+					<b>Get our Podcast ad-free</b> as well as our two member-only podcasts Rich Tips and Ask Anything. You'll also get all of our books.
+				</div>
+
+				<div class="join_why_right challenge_icon">
+					<h3><i class="fa fa-gift"></i>&nbsp;&nbsp;Pay It Forward</h3>
+					Become educated, educate others and support education. <i>Help close the financial knowledge gap.</i> <b>Learn by talking, master by teaching.</b> Be the agent of change.
+				</div>
+			</div>
+			<div class="clearfix"></div>
+
+		</div>
+
+
+  	</div>
+  	{% else %}
+	<div class="content">
+
+		<div class="container">
+
+			<div class="portlet portlet-boxed">
+
+				<div class="portlet-body">
+
+					<div class="row">
+
+						<div class="col-sm-8 col-md-8">
+
+							<div class="well">
+
+								{% if profile.subscription and profile.is_trial != 1 %}
+
+								<h4>You are currently on the <span class="text-success">Pro</span> plan.</h4>
+
+								{% if profile.subscription.plan.id == "pro" %}
+								<p>Your monthly charge of <strong>{{ "${:,.2f}".format((profile.subscription.plan.amount / 100)) }}</strong> is paid on the {{ profile.subscription.day }} of each month.</p>
+								{% else %}
+								<p>Your subscription charge of <strong>{{ "${:,.2f}".format((profile.subscription.plan.amount / 100)) }}</strong> will be renewed on the {{ profile.subscription.day }} of {{ profile.subscription.month }} each year.</p>
+								{% endif %}
+
+								{% elif user.access_level in ["free"]  %}
+
+								<h4>You are currently on the <span class="text-success">Pro</span> plan.</h4>
+								<p>
+									Looks like you signed up in our Alpha. Thanks, you're awesome!<br/>
+									To update your Billing Information then you need to head over to <a href="https://gumroad.com/settings/buyer_information">Gumroad</a>.
+								</p>
+								<p>If you're one of the lucky few on the Free plan, you can always become a patron by subscribing. If you ever cancel you will be brought back to the glorious free plan. Promise!</p>
+
+								{% else %}
+
+								<h4>You are currently on the <span class="text-warning">Trial</span> plan.</h4>
+
+								<p>We want everyone to be able to try Pro and get an idea for what we’re building.</p>
+								<br/>
+
+								<h4>Become a <span class="text-success">Founding Member</span>.</h4>
+
+								<p>Here’s what you can expect:
+
+								<ul>
+									<li>The best rental analysis tool out there.</li>
+									<li>An awesome Community.</li>
+									<li>Ad-Free feed for our podcast.</li>
+									<li>Member-Only podcasts Ask Anything and Rich Tips.</li>
+									<li>All of our books including Mastering Mint.</li>
+								</ul>
+
+								<p>Thank you for your support, it means the world to us!</p>
+								<!-- <p>Your trial expires on <span class="text-danger">{{ profile.trial_end }}</span>.</p> -->
+
+								{% endif %}
+
+								<br>
+
+								{% if profile.customer and profile.subscription %}
+								<h5>Card Details</h5>
+
+								<table class="table">
+									<tbody>
+										<tr>
+											<th>Card Type</th>
+											<td>{{ profile.customer.sources.data[0].brand|title }}</td>
+										</tr>
+
+										<tr>
+											<th>Card Number</th>
+											<td>
+												<form action="/change" method="post">
+													<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+													<input type="hidden" name="update_card" value="true" />
+													**** **** **** {{ profile.customer.sources.data[0].last4|title }} &nbsp;
+													<small> <button id="updateCard" class="btn btn-secondary">Update Card</button></small>
+												</form>
+											</td>
+										</tr>
+
+										<tr>
+											<th>Valid Until</th>
+											<td>{{ profile.customer.sources.data[0].exp_month|title }} / {{ profile.customer.sources.data[0].exp_year|title }}</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<br/><br/>
+								
+								<form id="fm-cancelsub" action="/change" method="post">
+									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+									<input type="hidden" name="cancel_membership" value="true" />
+									<input id="cancelSub" class="btn btn-danger" value="Cancel Membership" />
+								</form>
+
+								{% endif %}
+
+							</div> <!-- /.well -->
+
+						</div> <!-- /.col -->
+
+						<div class="col-sm-4">
+
+							<div class="pricing-plan">
+								<div class="pricing-header">
+									<h3 class="pricing-plan-title">Founding Member</h3>
+									<p class="pricing-plan-label">Tools + Community + Exclusives</p>
+								</div>
+
+								{% if profile.sell_to == "true" %}
+								<div class="pricing-plan-price">
+									<span class="pricing-plan-amount">$14</span> / month
+								</div>
+								{% endif %}
+
+								<ul class="pricing-plan-details">
+									<li><strong>Real Estate Analysis Tool</strong></li>
+									<li><strong>Community</strong></li>
+									<li>Ad Free Podcast Episodes</li>
+									<li>Member-Only Podcasts</li>
+								</ul>
+
+								<form action="/charge" method="post">
+									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+									<input type="hidden" name="tier" value="pro" />
+									{% if profile.sell_to == "true" %}
+									<button id="proplan" class="btn btn-success">Subscribe</button>
+									{% endif %}
+								</form>
+
+							</div> <!-- /.pricing-plan -->
+
+						</div> <!-- /.col -->
+
+					</div> <!-- /.row -->
+
+				</div> <!-- /.portlet-body -->
+
+			</div>
+		</div>
+
+
+
+			</div> <!-- /.portlet -->
+
+			<br class="xs-30">
+
+		</div> <!-- /.container -->
+
+	</div> <!-- .content -->
+	{% endif %}
+
+{% endblock %}

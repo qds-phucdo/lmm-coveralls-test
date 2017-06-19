@@ -1,0 +1,73 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<div class="content">
+		<div class="container">
+			<br class="sm-50 md-100">
+			
+			<div class="error-container">
+			
+				<div class="error-code">
+					404
+				</div> <!-- /.error-code -->
+				
+				<div class="error-details">
+				
+					<h4>Oops, <span class="text-primary">You're lost</span>.</h4>
+					
+					<p>We can't find the page you're looking for. Is there a typo in the url? Try searching the property below:</p>
+					
+					<div id="locationField" style="margin-top: 10px;">
+						<div class="has-feedback has-feedback-left">
+							<input id="autocomplete" class="form-control" placeholder="Enter an address" onFocus="geolocate()" type="text"></input>
+					    	<div class="form-control-feedback form-control-property">
+								<i class="fa fa-search"></i>
+	                        </div>
+                        </div>
+				    </div>
+				    
+				    <div style="display: none;">
+						<table id="address">
+							<tr>
+								<td class="label">Street address</td>
+								<td class="slimField">
+									<input class="field" id="street_number" disabled="true"></input>
+								</td>
+								<td class="wideField" colspan="2">
+									<input class="field" id="route" disabled="true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">City</td>
+								<td class="wideField" colspan="3">
+									<input class="field" id="locality" disabled="true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">State</td>
+								<td class="slimField">
+									<input class="field" id="administrative_area_level_1" disabled="true"></input>
+								</td>
+								<td class="label">Zip code</td>
+								<td class="wideField">
+									<input class="field" id="postal_code" disabled="true"></input>
+								</td>
+							</tr>
+							<tr>
+								<td class="label">Country</td>
+								<td class="wideField" colspan="3">
+									<input class="field" id="country" disabled="true"></input>
+								</td>
+							</tr>
+						</table>
+				    </div>
+				
+				</div> <!-- /.error-details -->
+			
+			</div> <!-- /.error -->
+		
+		</div> <!-- /.container -->
+	</div> <!-- .content -->
+
+{% endblock %}

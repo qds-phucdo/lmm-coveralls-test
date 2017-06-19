@@ -1,0 +1,60 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+  
+	<div class="content-page">
+	
+		<div class="content">
+		
+			<div class="container"><div id="message">{{ header.message|safe }}</div></div>
+			
+			<div class="container">
+
+		        <div class="col-md-10 col-md-offset-1">
+			        
+			        <div class="page-header">
+						<h3 class="page-title">Product Updates</h3>
+					</div>
+
+					<div class="portlet portlet-boxed">
+
+			            <div class="portlet-body" >
+
+							<table class="table keyvalue-table">
+								<tbody>
+									{% for result in change_log %}
+									<tr>
+										<td class="kv-key" nowrap>
+											{{ result.create_dt_formatted }}
+										</td>
+										<td class="kv-key">
+											{% if result.change_type == "new" %}
+												<b class="text-success">{{ result.change_type }}</b>
+											{% elif result.change_type == "fix" %}
+												<b class="text-primary">{{ result.change_type }}</b>
+											{% else %}
+												<b class="text-warning">{{ result.change_type }}</b>
+											{% endif %}
+										</td>
+										<td>
+											{{ result.change_description|safe }}
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+						</div> <!-- /.portlet-body -->
+
+					</div> <!-- /.portlet -->
+
+				</div> <!-- /.col -->
+
+							
+			</div> <!-- /.container -->
+		
+		</div> <!-- .content -->
+	
+	</div>
+  
+{% endblock %}

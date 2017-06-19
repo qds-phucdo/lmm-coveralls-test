@@ -1,0 +1,305 @@
+/* MORTGAGE CHART */
+.axis path {
+    display: none;
+}
+
+.axis line {
+    display: none;
+}
+.y.axis g line{
+    display: block;
+    stroke-opacity: .05;
+}
+.nvtooltip {
+    position: absolute;
+    background-color: rgba(8, 99, 162, 0.5);
+    text-align: center;
+    padding: 5px 20px;
+    border: none;
+    font-family: Arial;
+    font-size: 13px;
+    transition: opacity 0ms linear;
+    -moz-transition: opacity 0ms linear;
+    -webkit-transition: opacity 0ms linear;
+    transition-delay: 0ms
+    -moz-transition-delay: 0ms;
+    -webkit-transition-delay: 0ms;
+    /*-moz-box-shadow: 4px 4px 12px rgba(0,0,0,.5);
+    -webkit-box-shadow: 4px 4px 12px rgba(0,0,0,.5);
+    box-shadow: 4px 4px 12px rgba(0,0,0,.5);*/
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    color:#fff;
+}
+.nvtooltip:after, .nvtooltip:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.nvtooltip:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: rgba(8, 99, 162, 0.5);
+	border-width: 3px;
+	margin-left: -3px;
+}
+.nvtooltip:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: rgba(8, 99, 162, 0.5);
+	border-width: 6px;
+	margin-left: -6px;
+}
+
+.mrr-graph__tooltip {
+	position: absolute;
+	pointer-events: none;
+	min-width: 100px;
+	z-index: 99999;
+	-webkit-transform: translate(-50%, -100%);
+	transform: translate(-50%, -100%);
+	-webkit-transition: opacity .3s, -webkit-transform .3s;
+	transition: opacity .3s, -webkit-transform .3s;
+	transition: transform .3s, opacity .3s;
+	transition: transform .3s, opacity .3s, -webkit-transform .3s;
+	background-color: #FFFFFF;
+	border: 1px solid #f0f5f7;
+	box-shadow: 0 1px 2px rgba(74, 144, 226, 0.1);
+	padding: 6px 28px 6px 18px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	left: 50%;
+	top: 50%;
+	opacity: 0;
+}
+
+.mrr-graph__tooltip>div {
+	font-size: 0.75rem;
+	color: #596d84;
+	text-align: center;
+	line-height: 1.3;
+	white-space: nowrap;
+}
+
+.mrr-graph__tooltip>div span {
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin-left: 8px;
+}
+
+.mrr-graph__tooltip>div.trend {
+	width: calc(100% + 36px);
+	margin-left: -18px;
+	margin-top: 6px;
+}
+
+.mrr-graph__tooltip>div.trend span {
+	margin-left: 0;
+}
+
+.mrr-graph__tooltip>div.trend span:before {
+	font-family: baremetrics;
+	font-size: 0.625rem;
+}
+
+.mrr-graph__tooltip .col-table {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.mrr-graph__tooltip .col span {
+	font-size: 1.2rem;
+	margin: 0;
+	border-top: 1px solid #f7f9fa;
+	height: 35px;
+	line-height: 35px;
+	display: block;
+}
+
+.mrr-graph__tooltip .col .net {
+	background-color: #f7f9fa
+}
+
+.mrr-graph__tooltip .col.names span {
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 50px;
+}
+
+.mrr-graph__tooltip .col-table .amounts span {
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mrr-graph__tooltip .col.names span:before {
+	content: '';
+	width: 13px;
+	height: 13px;
+	border-radius: 2px;
+	display: inline-block;
+	position: relative;
+	top: 3px;
+	margin-right: 10px;
+}
+
+.mrr-graph__tooltip .col.names span.property-value:before {
+	background-color: rgb(123, 192, 211);
+}
+
+.mrr-graph__tooltip .col.names span.equity:before {
+	background-color: rgb(106, 179, 88);
+}
+
+.mrr-graph__tooltip .col.names span.loan-balance:before {
+	background-color: rgb(210, 67, 89);
+}
+
+.mrr-graph__tooltip .current {
+	padding: 10px 0;
+	font-size: 1.3rem;
+	font-weight: 600 !important;
+}
+
+.breakout {
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    border-radius: 0 0 5px 5px;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+}
+
+.breakout .column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+}
+
+.breakout .column.titles {
+    font-weight: 600;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    -webkit-transition: box-shadow 250ms;
+    transition: box-shadow 250ms;
+    width: 170px;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    border-left: 1px solid #e2e8ea;
+}
+
+.breakout .breakout-scroller {
+    overflow: scroll;
+    padding-left: 170px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-right: 1px solid #e2e8ea;
+}
+
+.breakout .breakout-table {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.breakout .cell {
+    white-space: nowrap;
+    line-height: 0.75;
+    padding: 1rem 0.7rem;
+    border-bottom: 1px solid rgba(36,46,53,0.1);
+    min-width: 105px;
+    cursor: pointer;
+    background-position: 80% center;
+}
+
+.breakout .head {
+    -webkit-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+    order: 0;
+    background-color: #f7f9fa;
+    border-top: 1px solid #e2e8ea;
+    border-bottom: 1px solid #e2e8ea;
+    padding: 0.5rem 1.120rem;
+    color: #a1abb3;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: default;
+    position: relative;
+    line-height: 1.2;
+}
+
+.breakout .foot {
+    -webkit-box-ordinal-group: 7;
+    -ms-flex-order: 6;
+    order: 6;
+    background-color: #f7f9fa;
+    position: relative;
+}
+
+.breakout .column:hover:not(.titles) .cell, .breakout .column.active .cell {
+    background-color: rgba(74,144,226,0.1);
+}
+
+.breakout .column:hover:not(.titles) .head, .breakout .column.active .head {
+    background-color: #4A90E2;
+    border-color: #4A90E2;
+    color: #FFFFFF;
+}
+
+#amort-table { 
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+#amort-table tr {
+	display: flex;
+}
+#amort-table th:nth-child(1), td:nth-child(1) {
+	flex-basis: 10%;
+}
+#amort-table th:nth-child(2), td:nth-child(2),
+#amort-table th:nth-child(3), td:nth-child(3),
+#amort-table th:nth-child(4), td:nth-child(4),
+#amort-table th:nth-child(5), td:nth-child(5),
+#amort-table th:nth-child(6), td:nth-child(6),
+#amort-table th:nth-child(7), td:nth-child(7) { 
+	flex-basis: 15%;
+}
+#amort-table thead {
+	margin-right: 15px;
+}
+#amort-table tbody {
+	height: 500px;
+	overflow-y: scroll;
+}
+#amort-table tbody tr.active, 
+#amort-table tbody tr.active td {
+	background: #edf4fc;
+}

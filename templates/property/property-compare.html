@@ -1,0 +1,205 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<div class="content">
+	
+	    <div class="container" id="container-medium-width">
+	
+			<div class="row">
+		
+		        <div class="col-md-12 col-sm-12">
+					<div class="portlet portlet-boxed">
+		
+						<div class="portlet-body">
+									
+							<div id="myTab2Content" class="tab-content">
+			
+								<div class="tab-pane fade in active" id="location-2">
+									<p>
+										<div id="map" style="height: 450px;"></div>
+										<script>
+											var locations = [];
+											var map;
+											
+											function initMap() {
+												map = new google.maps.Map(document.getElementById('map'), {
+													center: { lat: 39.0997, lng: -94.5786 }, // Default center
+													scrollwheel: false,
+													zoom: 4
+												});
+												
+												google.maps.event.addDomListener(window, 'resize');
+												
+												if (locations.length) {
+													var bounds = new google.maps.LatLngBounds();
+													var infowindow = new google.maps.InfoWindow();
+													
+													for (i = 0; i < locations.length; i++) {  
+														var marker = new google.maps.Marker({
+															position: { lat: locations[i]['lat'], lng: locations[i]['lng'] },
+															map: map,
+															title: locations[i]['title']
+														});
+													
+														//extend the bounds to include each marker's position
+														bounds.extend(marker.position);
+													
+														google.maps.event.addListener(marker, 'click', (function(marker, i) {
+															return function() {
+																infowindow.setContent(locations[i]['title']);
+																infowindow.open(map, marker);
+															}
+														})(marker, i));
+													}
+													
+													//now fit the map to the newly inclusive bounds
+													map.fitBounds(bounds);
+
+													//(optional) restore the zoom level after the map is done scaling and only one location
+													if (locations.length == 1) {
+														var listener = google.maps.event.addListener(map, "idle", function () {
+															map.setZoom(16);
+															google.maps.event.removeListener(listener);
+														});
+													}
+												}
+											}
+										</script>
+									</p>
+								</div> <!-- /.tab-pane -->
+			
+							</div> <!-- /.tab-content -->
+		
+						</div> <!-- /.portlet-body -->
+			
+					</div> <!-- /.portlet -->
+			          
+				</div> <!-- /.col -->
+		
+				<div class="col-md-4 col-sm-5">
+				
+					<div class="portlet portlet-boxed">
+					
+						<div class="portlet-header property-info-title-wrapper">
+							<h4 class="two-lines dropdown">
+								<div data-toggle="dropdown">
+									{% if p1 %}
+										{{ p1.pretty_address }}
+									{% else %}
+										Choose a saved property<br/>(click to select)	
+									{% endif %}
+								</div>
+								{% if properties_saved|length %}
+								<ul class="dropdown-menu property-dropdown">
+									{% if p1 and p1.get('property_id') == None %}
+									<li>
+										<a class="active" href="javascript:void(0);" data-property-id="{{ p1['address'] }}">
+										{{ p1['pretty_address'] }}
+										</a>
+									</li>	
+									{% endif %}
+									{% for property in properties_saved %}
+										<li>
+											<a {% if p1 and p1['property_id'] == property['property_id'] %}class="active"{% endif %} href="javascript:void(0);" data-property-id="{{ property['property_id'] }}">
+											{{ property['pretty_address'] }}
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
+							</h4>
+						</div> <!-- /.portlet-header -->
+						
+						<div class="portlet-body" >
+							{% with property=p1 %}
+								{% include "/property/property-info.html" %}
+							{% endwith %}
+						</div> <!-- /.portlet-body -->
+					
+					</div> <!-- /.portlet -->
+				
+				</div> <!-- /.col -->
+		        
+				<div class="col-md-4 col-sm-5">
+		
+					<div class="portlet portlet-boxed">
+					
+						<div class="portlet-header property-info-title-wrapper">
+							<h4 class="two-lines">
+								<div data-toggle="dropdown">
+									{% if p2 %}
+										{{ p2.pretty_address }}
+									{% else %}
+										Choose a saved property<br/>(click to select)	
+									{% endif %}
+								</div>
+								{% if properties_saved|length %}
+								<ul class="dropdown-menu property-dropdown">
+									{% for property in properties_saved %}
+										<li>
+											<a {% if p2 and p2['property_id'] == property['property_id'] %}class="active"{% endif %} href="javascript:void(0);" data-property-id="{{ property['property_id'] }}">
+											{{ property['pretty_address'] }}
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
+							</h4>
+						</div> <!-- /.portlet-header -->
+					
+						<div class="portlet-body" >
+							{% with property=p2 %}
+								{% include "/property/property-info.html" %}
+							{% endwith %}
+						</div> <!-- /.portlet-body -->
+		
+					</div> <!-- /.portlet -->
+		
+				</div> <!-- /.col -->
+				
+				<div class="col-md-4 col-sm-5">
+		
+					<div class="portlet portlet-boxed">
+					
+						<div class="portlet-header property-info-title-wrapper">
+							<h4 class="two-lines">
+								<div data-toggle="dropdown">
+									{% if p3 %}
+										{{ p3.pretty_address }}
+									{% else %}
+										Choose a saved property<br/>(click to select)	
+									{% endif %}
+								</div>
+								{% if properties_saved|length %}
+								<ul class="dropdown-menu property-dropdown">
+									{% for property in properties_saved %}
+										<li>
+											<a {% if p3 and p3['property_id'] == property['property_id'] %}class="active"{% endif %} href="javascript:void(0);" data-property-id="{{ property['property_id'] }}">
+											{{ property['pretty_address'] }}
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
+							</h4>
+						</div> <!-- /.portlet-header -->
+					
+						<div class="portlet-body" >
+							{% with property=p3 %}
+								{% include "/property/property-info.html" %}
+							{% endwith %}		
+						</div> <!-- /.portlet-body -->
+		
+					</div> <!-- /.portlet -->
+		
+				</div> <!-- /.col -->
+		        
+			</div> <!-- /.row -->
+	
+		</div> <!-- /.container -->
+	
+	</div> <!-- .content -->
+
+{% endblock %}
+

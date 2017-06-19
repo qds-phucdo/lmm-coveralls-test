@@ -1,0 +1,86 @@
+<div class="sidebar">
+
+	<div class="sidebar-bg"></div><!-- /.sidebar-bg -->
+	
+	<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%; {% if header.active in ["search"] %}display: none;{% endif %}">
+		<div class="sidebar-inner sidebar-collapse" style="overflow: hidden; width: auto; height: 100%; display: block;">
+	
+			<ul class="sidebar-menu homenav">
+				
+				<!--
+				<li class="sidebar-header">Monthly Cashflow</li>
+				
+				<li class="monthly-cashflow">
+				<a>
+				<i class="fa fa-dollar"></i>
+				1,456.46
+				</a>
+				</li>
+				
+				<li class="sidebar-header">Property Equity</li>
+				
+				<li class="monthly-cashflow">
+				<a>
+				<i class="fa fa-dollar"></i>
+				81,456.46
+				</a>
+				</li>
+				
+				<li class="divider"></li>
+				-->
+				
+				<!--
+				<li class="">
+				<a href="./index.html">
+				<i class="fa fa-dashboard"></i>Max Capacity</a>
+				</li>
+				-->
+				
+				<li class="sidebar-header">Property Groups</li>
+				
+				{% if (property_groups is defined) and property_groups %}
+					{% for group in property_groups %}
+					<li class="{% if header.active == "group" and property_group|lower == group['portfolio_name']|lower|replace(' ', '_') %}active{% endif %}">
+						<a href="/property/group/{{ group['portfolio_name'].lower()|replace(' ', '_') }}">
+							<i class="fa fa-line-chart dropdown-icon "></i>
+							{{ group['portfolio_name'] }}
+						</a>
+					</li>
+					{% endfor %}
+				{% else %}
+				<li>
+					<a style="font-style: italic;">No groups created yet!</a>
+				</li>
+				{% endif %}
+				
+				<li class="divider mobile-hide"></li>
+				
+				<li class="sidebar-header mobile-hide">
+					Recently Viewed
+				</li>
+				
+				{% if (property_history is defined) and property_history %}
+					{% for property in property_history %}
+					{% set url = property['action_text'].split('|') %}
+					<li class="mobile-hide">
+						<a href="/property/{{ url[0] }}/{{ url[1] }}/overview" style="margin-left: 3px;">
+							{{ url[0]|pretty_address }}
+						</a>
+					</li>
+					{% endfor %}
+				{% else %}
+				<li>
+					<a style="font-style: italic;">No properties viewed yet!</a>
+				</li>
+				{% endif %}
+				
+			</ul>
+	
+			<div class="clearfix"></div>
+	
+		</div>
+		<div class="slimScrollBar" style="width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 1139px; background: rgb(136, 136, 136);"></div>
+		<div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(153, 153, 153);"></div>
+	</div><!-- /.sidebar-inner -->
+	
+</div>

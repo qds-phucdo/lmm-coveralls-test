@@ -1,0 +1,156 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+		
+
+<div class="content">
+
+	<div class="container">
+	
+		<div class="row">
+		
+			<div class="col-md-3 col-sm-5">
+			
+				<div class="profile-avatar">
+					<img src="{{ url_for('static', filename='img/avatars/'+coach.slug+'.jpg') }}" class="profile-avatar-img img-responsive thumbnail" alt="Profile Image">
+				</div> <!-- /.profile-avatar -->
+					
+				<p class="coach_social">
+					{% if coach.facebook %}<a href="https://www.facebook.com/{{ coach.facebook }}" target="_blank" itemprop="sameAs" alt="Facebook" class="fa fa-facebook"></a>{% endif %}
+					{% if coach.twitter %}<a href="https://twitter.com/{{ coach.twitter }}" target="_blank" class="fa fa-twitter" itemprop="sameAs" alt="Twitter"></a>{% endif %}
+					{% if coach.linkedin %}<a href="https://www.linkedin.com/in/{{ coach.linkedin }}" target="_blank" class="fa fa-linkedin"></a>{% endif %}
+				</p>
+				
+			</div> <!-- /.col -->
+			
+			<div class="col-md-6 col-sm-7">
+			
+				<br class="visible-xs">
+				
+				<h3>{{ coach.name }}</h3>
+				
+				<h6 class="text-muted">{{ coach.title }}</h6>
+				
+				<hr>
+				<p>{{ coach.short_bio }}</p>
+
+				<hr>
+				
+				<br><br>
+				
+				<div class="heading-block">
+					<h4>
+					{{ coach.long_bio_title }}
+					</h4>
+				</div> <!-- /.heading-block -->
+				
+				<div class="coach_text">
+					{% include '/coaching/coaches/'+coach.slug+'.html' with context %}
+					<script>
+						var handler = StripeCheckout.configure({
+							key: stripe_public_key,
+							{% if header.active == "account" %}
+							image: '/static/img/lmm_icon.jpg',
+							{% else %}
+							image: '/static/img/avatars/{{ coach.slug }}.jpg',
+							{% endif %}
+							locale: 'auto',
+							zipCode: true,
+							token: function(token) {
+								var $input = $('<input type=hidden name=stripeToken />').val(token.id);
+								form.append($input).submit()
+							}
+						});
+					</script>
+				</div>
+				
+				<br class="visible-xs">
+				<br class="visible-xs">
+			
+			</div> <!-- /.col -->
+			
+			<div class="col-md-3">
+				
+				<div class="heading-block">
+					<h5>
+						Sessions Available
+					</h5>
+				</div> <!-- /.heading-block -->
+				
+				{% for package in coach_packages %}
+				<div class="pricing-plan">
+					<div class="pricing-header">
+						<h3 class="pricing-plan-title">{{ package.title|title }}</h3>
+						<p class="pricing-plan-label">8 sessions remaining for {{ cur_month|title }}</p>
+					</div>
+				
+					<div class="pricing-plan-price">
+						<span class="pricing-plan-amount">${{ package.price }}</span> / hour session
+					</div>
+				
+					<ul class="pricing-plan-details">
+						{{ package.package_contents|safe }}
+					</ul>
+				
+					<form action="/coach/{{ coach.slug }}/schedule" method="post">
+						<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+						<input type="hidden" name="coach" value="{{ coach.slug }}" />
+						<button id="{{ package.package_slug }}" class="btn btn-success">Schedule</button>
+					</form>
+				
+					<script>
+						$('#{{ package.package_slug }}').on('click', function(e) {
+							// Open Checkout with further options
+							handler.open({
+								name: '{{ coach.name }}',
+								description: '{{ package.title|title }}',
+								email: '{{ profile.email }}',
+								amount: {{ (package.price * 100) }},
+								zipCode: true
+							});
+							e.preventDefault();
+							form = $(this).closest("form");
+						});
+						
+				
+						// Close Checkout on page navigation:
+						$(window).on('popstate', function() {
+							handler.close();
+						});
+					</script>
+				
+				</div> <!-- /.pricing-plan -->
+				{% endfor %}
+			
+			</div> <!-- /.col -->
+		
+		</div> <!-- /.row -->
+	
+	<br class="xs-20">
+	
+	</div> <!-- /.container -->
+	
+	<div id="questionModal" class="modal modal-styled fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				
+				<div class="modal-body">
+					<!-- Change the width and height values to suit you best -->
+<div class="typeform-widget" data-url="https://listenmoneymatters.typeform.com/to/gQOYR7" data-text="andrew" style="width:100%;height:600px;"></div>
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'widget.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+
+				</div> <!-- /.modal-body -->
+			
+			</div> <!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+</div> <!-- .content -->
+
+
+
+
+		
+<div class="clearfix"></div>
+		
+{% endblock %}

@@ -1,0 +1,207 @@
+.classic_featured {
+	background: radial-gradient(ellipse at center, #202a2f 0%, #232e33 100%);
+	padding: 162px 0px 140px 0px;
+	margin-top: -62px;
+	text-align: center;
+}
+.classic_featured h1 {
+	color: white;
+	font-size: 56px;
+	font-family: 'Lato';
+}
+.classic_featured .desc {
+    color: #999;
+    font-size: 20px;
+}
+.flex-container {
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	-ms-grid-row-align: flex-start;
+	align-items: flex-start;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-flow: column nowrap;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+	padding: 0px 60px;
+}
+.flex-container .content {
+	width: 48%;
+	margin: -56px auto 0 auto;
+	padding-top: 0px;
+	text-align: center;
+}
+.flex-container .price-details-container {
+	margin-bottom: 0px;
+	padding: 50px;
+}
+.flex-container .content:first-child .price-details-container {
+	box-shadow: 0 2px 3em 0 rgba(50, 50, 50, 0.25);
+	border-radius: 0px 0px 6px 6px;
+}
+.flex-container .banner {
+	height: 56px;
+	color: white;
+	background: #83c341;
+	font-size: 16px;
+	border-radius: 6px 6px 0px 0px;
+}
+.flex-container .banner.no-show {
+	background: transparent;
+}
+.flex-container .package-name {
+	margin-bottom: 32px;
+	font-size: 28px;
+	font-weight: 600;
+	line-height: 1.15;
+}
+.flex-container .package-price {
+	margin-bottom: 48px;
+}
+.flex-container .ds {
+	margin-top: 16px;
+	font-size: 26px;
+}
+.flex-container .price {
+	font-size: 80px;
+	font-family: 'Lato';
+}
+.flex-container .mo {
+	margin-bottom: 6px;
+	font-size: 16px;
+}
+.flex-container .package-billed {
+	margin-top: 48px;
+	font-size: 18px;
+	color: #767f8c;
+}
+.flex-container .btn {
+	font-size: 20px;
+	border-radius: 6px;
+	padding: 6px 30px;
+}
+.flex-container .btn-hollow {
+	background: transparent;
+	color: #5cb85c;
+}
+
+.package-all {
+	margin-top: 80px;
+	font-size: 18px;
+}
+.package-list__desc {
+	font-weight: 600;
+}
+.package-list__container {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-flow: row nowrap;
+	flex-flow: row nowrap;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+	padding: 24px 48px;
+}
+.package-list__column {
+	width: 33%;
+	-ms-flex-preferred-size: auto;
+	flex-basis: auto;
+	-webkit-box-flex: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+}
+.package-list__items {
+	width: 100%;
+	margin-bottom: 24px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-flow: row nowrap;
+	flex-flow: row nowrap;
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+	-webkit-box-align: start;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	-ms-flex-line-pack: start;
+	align-content: flex-start;
+}
+.package-list__bullet {
+	margin: 0px 6px 0px 0px;
+	color: #5cb85c;
+}
+.package-list__text {
+	padding-right: 20px;
+	font-size: 16px;
+}
+.package-list__header {
+    font-size: 25px;
+    font-weight: 600;
+}
+.join_why_left, .join_why_right {
+	float: left;
+	display: inline;
+	width: 50%;
+	text-align: center;
+	font-size: 16px;
+	padding: 25px 60px;
+	line-height: 26px;
+}
+.join_why_right {
+	float: right;
+}
+.join_why_left h3, .join_why_right h3, .join_header {
+	color: black;
+	font-family: 'Open Sans';
+	font-weight: 600;
+}
+.join_header {
+	text-align: center;
+	margin: 80px 0px 40px 0px;
+	font-size: 40px;
+}
+.container.space-bottom {
+    padding-bottom: 40px;
+}
+
+@media screen and (max-width: 700px) {
+	
+	.classic_featured {
+		padding: 40px 0px 120px 0px;
+	}
+	
+	.flex-container {
+		padding: 0px;
+		display: block;
+	}
+	
+	.flex-container .content {
+		width: 90%;	
+	}
+	
+	.join_why_left, .join_why_right {
+		padding: 25px 10px;
+		width: 100%;
+		float: none;
+		display: block;
+	}
+	
+}

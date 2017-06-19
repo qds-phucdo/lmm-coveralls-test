@@ -1,0 +1,237 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<div class="content">
+			
+			<div class="container">
+
+				<div class="row">
+			
+					<div class="col-sm-6 col-md-4 col-nopadding">
+							<div class="col-sm-6 col-md-7">
+								<div class="row-stat">
+									<p class="row-stat-label">Total Upfront Cost</p>
+									<h3 class="row-stat-value"><span class="text-danger">$</span> {{ group_summaries.total_cost }}</h3>
+								</div> <!-- /.row-stat -->
+							</div> <!-- /.col -->
+					
+							<div class="col-sm-6 col-md-5">
+								<div class="row-stat">
+									<p class="row-stat-label">Cash on Cash</p>
+									<h3 class="row-stat-value">{{ group_summaries.avg_cash_on_cash }} %</h3>
+								</div> <!-- /.row-stat -->
+							</div> <!-- /.col -->
+					</div>
+					
+					<div class="col-sm-6 col-md-8">
+						<div class="row-stat">
+							<div class="col-sm-6 col-md-3">
+								<p class="row-stat-label">Monthly Reserve</p>
+								<h3 class="row-stat-value"><span class="text-warning">$</span> {{ group_summaries.monthly_reserve }}</h3>
+							</div> <!-- /.col -->
+							
+							<div class="col-sm-6 col-md-1">
+								<h3 class="row-stat-value"><br/>+</h3>
+							</div>
+							
+							<div class="col-sm-6 col-md-8">
+							
+								<div class="col-sm-6 col-md-6">
+									<p class="row-stat-label">Cash Flow After Reserve</p>
+									<h3 class="row-stat-value"><span class="text-success">$</span> {{ group_summaries.monthly_growth }}</h3>
+								</div> <!-- /.col -->
+								
+								<div class="col-sm-6 col-md-1">
+									<h3 class="row-stat-value"><br/>=</h3>
+								</div>
+						
+								<div class="col-sm-6 col-md-5">
+									<p class="row-stat-label">Monthly Cash Flow</p>
+									<h3 class="row-stat-value"><span class="text-success">$</span> {{ group_summaries.monthly_cashflow }}</h3>
+								</div> <!-- /.col -->
+								
+							</div>
+							
+							<div class="clearfix"></div>
+						</div> <!-- /.row-stat -->
+					</div> <!-- /.col -->
+					
+				</div> <!-- /.row -->
+				
+				<br class="xs-5">
+				
+				{% for property in all_properties %}
+				<div class="portlet portlet-boxed">
+					
+					<div class="portlet-header">
+						<h4 class="portlet-title">
+							<a href="/property/{{ all_properties[property].address }}/{{ all_properties[property].zillow.zpid }}/overview">
+								{{ all_properties[property].pretty_address }}
+							</a>
+						</h4>
+					</div> <!-- /.portlet-header -->
+					
+					<div class="portlet-body">
+					
+						<div class="row">
+					
+							<div class="col-sm-12 col-md-5">
+								<div class="portlet-body">
+					              
+							<table class="table keyvalue-table">
+								<tbody>
+									<tr>
+										<td class="kv-key">
+											<i class="fa fa-certificate kv-icon kv-icon-warning"></i>Estimated Value
+											<span class="badge badge-tertiary ui-popover" 
+												data-toggle="tooltip" data-placement="top" data-trigger="hover" 
+												data-original-title="Certified by Zillow.com"
+												data-content="This number can not be changed and is currently what Zillow estimates the property value to be. 
+												If you're buying this property for less than the Estimated Value than it's likely you will have some equity built 
+												into your purchase. Sweet!">?
+											</span>
+										</td>
+										<td class="kv-value">${{ all_properties[property].hard.valuation }}</td>
+									</tr>
+									<tr>
+										<td class="kv-key">
+											<i class="fa fa-home kv-icon kv-icon-primary"></i>Purchase Price
+											<span class="badge badge-tertiary ui-popover" 
+												data-toggle="tooltip" data-placement="top" data-trigger="hover" 
+												data-original-title="How much you buy the property for."
+												data-content="The success of a rental property purchase relies heavily on this number. Make no mistake, the 
+												easiest way to improve cash flow is to reduce how much the property costs. Unless you're getting a great deal 
+												this number should probably be lower than the Estimated Value provided by Zillow.">?
+											</span>
+										</td>
+										<td class="kv-value">${{ all_properties[property].hard.purchase_price }}</td>
+									</tr>
+									<tr>
+										<td class="kv-key"><i class="fa fa-trophy kv-icon kv-icon-success"></i>Monthly Rent
+										</td>
+										<td class="kv-value">${{ all_properties[property].hard.rent }}</td>
+									</tr>
+									<tr>
+										<td class="kv-key"><i class="fa fa-line-chart kv-icon kv-icon-default"></i>Cash on Cash
+											<span class="badge badge-tertiary ui-popover" 
+												data-toggle="tooltip" data-placement="top" data-trigger="hover" 
+												data-original-title="( NOI - Financing ) &divide; Cash Invested"
+												data-content="Cash on Cash (CoC ROI) is the actual return you will get on this investment. It takes into account all 
+												property specific expenses (NOI), the cost of financing and how much you paid for the entire deal.">?
+											</span>
+										</td>
+										<td class="kv-value">{{ all_properties[property].calc.cash_on_cash }}%</td>
+									</tr>
+								</tbody>
+							</table>
+					
+					            </div>
+							</div> <!-- /.col -->
+						
+							
+							<div class="col-sm-12 col-md-7">
+
+								<div class="portlet-body portlet-borderless">
+									<div class="row">
+										<div class="col-md-6 col-xs-6 text-center">
+											<div>
+												<h3><small><i class="fa fa-dollar text-danger "></i></small>&nbsp;{{ all_properties[property].calc.monthly_expenses }}</h3>
+												<small class="text-muted">Monthly Expenses</small>
+											</div>
+										</div> <!-- /.col -->
+										<div class="col-md-6 col-xs-6 text-center">
+											<div>
+												<h3><small><i class="fa fa-dollar text-success"></i></small>&nbsp;{{ all_properties[property].calc.monthly_principle }}</h3>
+												<small class="text-muted">Monthly Principal Gain (avg)</small>
+											</div>
+										</div> <!-- /.col -->
+									</div>
+								</div>
+								
+								<div class="portlet-body portlet-borderless">
+									<div class="row">		
+										
+										<div class="col-md-6 col-xs-6 text-center">
+											<div>
+												<h1><i class="fa fa-dollar text-warning"></i>&nbsp;{{ all_properties[property].calc.monthly_reserve }}</h1>
+												<small class="text-muted">Monthly Reserve</small>
+											</div>
+										</div> <!-- /.col -->
+										<div class="col-md-6 col-xs-6 text-center">
+											<div>
+												<h1><i class="fa fa-dollar text-success"></i>&nbsp;{{ all_properties[property].calc.monthly_cash_flow }}</h1>
+												<small class="text-muted">Cash Flow After Reserve</small>
+											</div>
+										</div> <!-- /.col -->	
+									</div>
+								</div>
+								
+							</div>
+							
+				              
+						</div> <!-- /.row -->
+					
+					</div> <!-- /.portlet-body -->
+					
+				</div> <!-- /.portlet -->
+			{% endfor %}
+			
+			</div> <!-- /.container -->
+			
+			<div id="groupSettings" class="modal modal-styled fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+					
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h3 class="modal-title">{{ property_group|replace('_', ' ')|title }} - Settings</h3>
+						</div> <!-- /.modal-header -->
+						
+						<div class="modal-body">
+							<p>
+								Update the settings of your Property Group here. 
+							</p>
+							<p>
+								You can also delete a group you created. If there are properties any saved to that group they automatically get moved to the default "My Saved Properties" group.
+							</p>
+							<hr>
+							<h5>Change your Group name:</h5>
+						
+							<div class="col-md-12">
+								<form data-parsley-validate>
+									<div class="input-group form-group">
+										<input id="original-group-name" type="hidden" value="{{ property_group|replace('_', ' ')|title }}" />
+										<input id="group-name" type="text" type="email" class="form-control" placeholder="Enter a group name"
+										value="{{ property_group|replace('_', ' ')|title }}"
+										autocomplete="off" 
+										data-parsley-trigger="keyup"
+										data-parsley-error-message="Only letters, numbers and spaces are allowed."
+										data-parsley-errors-container="#property-group-errors"
+										data-parsley-validation-threshold="0"
+										data-parsley-pattern="^[a-zA-Z0-9 ]+$" required>
+										<span class="input-group-btn">
+											<button id="update-group-button" class="btn btn-success group-update-button" type="button">Update</button>
+										</span>
+										
+									</div><!-- /input-group -->
+									<div id="property-group-errors"></div>
+								</form>
+							</div>
+							
+							<div class="clearfix"></div><br/>
+						</div> <!-- /.modal-body -->
+						
+						<div class="modal-footer">
+							<button type="button" id="delete-group-button" class="btn btn-primary">Delete Group</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div> <!-- /.modal-footer -->
+					
+					</div> <!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+	
+	</div> <!-- .content -->
+  
+{% endblock %}
+

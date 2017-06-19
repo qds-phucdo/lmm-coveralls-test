@@ -1,0 +1,92 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	{% include '/property/property-sidebar.html' with context %}
+  
+	<div class="content-page">
+	
+		<div class="content">
+		
+			<div class="container"><div id="message">{{ header.message|safe }}</div></div>
+			
+			<div class="container">
+				
+				{% include '/property/property-search.html' with context %}	
+				
+				<div class="row">
+					
+					<div class="col-sm-6">
+						<a href="https://help.listenmoneymatters.com">
+							<div class="portlet portlet-boxed">
+								<div class="portlet-body">
+									<div class="feature-content text-center">
+										<h3>
+											<i class="fa fa-rocket text-primary" style="font-size: 60px;"></i><br/><br/>
+											Getting Started
+										</h3>
+										
+										<!-- Videos on how to get started, ... -->
+										<p class="lead">Frequently Asked Questions and the formulas we used to create the tool.</p>	
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="https://www.listenmoneymatters.com/real-estate/">
+							<div class="portlet portlet-boxed">
+								<div class="portlet-body">
+									<div class="feature-content text-center">
+										<h3>
+											<i class="fa fa-home text-secondary" style="font-size: 60px;"></i><br/><br/>
+											Learn About Real Estate
+										</h3>
+										
+										<!-- Videos on how to get started, ... -->
+										<p class="lead">Everything we've created on real estate investing.</p>	
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					
+					<div class="col-sm-6">
+						<a href="/account/">
+							<div class="portlet portlet-boxed">
+								<div class="portlet-body">
+									<div class="feature-content text-center">
+										<h3>
+											<i class="fa fa-star text-warning" style="font-size: 60px;"></i><br/><br/>
+											Subscribe to Pro
+										</h3>
+										
+										<p class="lead">Rental research, member exclusives and a Community that wont let you quit.</p>	
+									</div>
+								</div>
+							</div>
+						</a>
+						<a href="https://www.listenmoneymatters.com/roofstock" 
+						   onclick="ga('send', 'event', 'Roofstock-Pro', 'Visit', '/go/roofstock', 1, {'nonInteraction': 1});">
+							<div class="portlet portlet-boxed">
+								<div class="portlet-body">
+									<div class="feature-content text-center">
+										<h3>
+											<i class="fa fa-dollar text-success" style="font-size: 60px;"></i><br/><br/>
+											Roofstock
+										</h3>
+										
+										<p class="lead">A marketplace of single family homes that already cash flow.</p>	
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					
+				</div>
+			
+			</div> <!-- /.container -->
+		
+		</div> <!-- .content -->
+	
+	</div>
+  
+{% endblock %}

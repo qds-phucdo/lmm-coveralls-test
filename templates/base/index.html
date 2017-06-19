@@ -1,0 +1,248 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<div class="masthead">
+	
+		<!-- starts carousel -->
+		
+		<div id="masthead-carousel" class="carousel masthead-carousel">
+			<div class="carousel-inner" style="max-height: 699px;">
+			
+				<div class="item active" id="homepagehero" style="max-height: 700px; background: url({{ url_for('static', filename='img/bg_blue_triangles.jpg') }}) no-repeat #2e5785; background-size: cover; background-position: left top;">
+				
+					<br class="xs-30 sm-60">
+					
+					<div class="container">
+					
+						<div class="row">
+						
+							<div class="col-md-10 col-md-offset-1 masthead-text text-center animated fadeIn">
+								<h1 class="masthead-title">Research and evaluate rental properties.</h1>
+								
+								<div class="masthead-actions">
+									<a href="/signup" class="btn btn-primary btn-landingpage btn-jumbo">
+									Create a Free Account
+									</a>
+								</div> <!-- /.masthead-actions -->
+							</div>
+							
+							<br class="xs-50">
+							
+							<div class="col-md-12 masthead-img animated fadeInUpBig">
+								<img src="{{ url_for('static', filename='img/property_screenshot_laptop.png') }}" alt="slide2" class="img-responsive">
+							</div>
+						
+						</div> <!-- /.row -->
+					
+					</div> <!-- /.container -->
+				
+				</div> <!-- /.item -->
+			
+			
+			</div>  <!-- /.carousel-inner -->
+		
+		
+		</div> <!-- /.masthead-carousel -->
+	
+	<!-- <img src="/static/img/zig_zag.png" alt="slide2" class="img-responsive"> -->
+	</div> <!-- /.masthead -->
+
+	
+
+	<div class="content landing_content">
+		<section id="section-features" class="home-section">
+
+			<br class="sm-30">
+			<div class="feature-lg figure-right">
+
+				<div class="container">
+					<div class="row">	
+						<center><h2>Ditch your spreadsheets. Let us do the math.</h2></center>
+						<br class="xs-20 sm-80">
+								
+						<div class="col-sm-5 col-sm-push-6">
+							<figure class="feature-figure"><img src="{{ url_for('static', filename='img/cash_flow.png') }}" class="img-responsive landing-page-feature-image-right"  style="width: 90%;" alt=""></figure>
+						</div><!-- /.col -->
+	
+						<div class="col-sm-7 col-sm-pull-4">
+							<div class="feature-content">
+								<h3>Calculate your <b>cash flow</b></h3>
+								<p class="lead">Find out if you're getting a good deal and what your costs look like. Just enter an address and we'll do the math.</p>
+								<a>Learn more</a>
+							</div> <!-- /.feature-content -->
+						</div><!-- /.col -->						
+					</div> <!-- /.row -->
+				</div>
+			
+			</div> <!-- /.feature-lg -->
+
+
+          <br class="xs-20 sm-80">
+
+          <div class="feature-lg">
+
+            <div class="row alternate_row">
+
+	            <div class="container">
+
+              <div class="col-sm-3 col-sm-offset-1">
+                <figure class="feature-figure"><img src="{{ url_for('static', filename='img/view_projections.png') }}" class="img-responsive landing-page-feature-image-left"  style="width: 90%;" alt=""></figure>
+              </div><!-- /.col -->
+
+              <div class="col-sm-7">
+                <br class="xs-30 sm-0">
+
+                <div class="feature-content">
+                  <h3><b>Visualize</b> your return over time</h3>
+
+                  <p class="lead">Understand your properties income, appreciation and equity using our sexy graphs. Change variables like rent and insurance to make sure you are always cash flow positive.</p>
+                  <a>Learn more</a>
+                </div> <!-- /.feature-content -->
+              </div><!-- /.col -->
+
+            </div> <!-- /.row -->
+
+            </div> <!-- /.container -->
+
+          </div> <!-- /.feature-lg -->
+
+		  <br class="xs-20 sm-80">
+
+          <div class="feature-lg figure-right">
+
+	            <div class="container">
+
+            <div class="row">
+
+              <div class="col-sm-5 col-sm-push-6">
+                <figure class="feature-figure"><img src="{{ url_for('static', filename='img/data_driven.png') }}" class="img-responsive landing-page-feature-image-right" alt=""></figure>
+              </div><!-- /.col -->
+
+              <div class="col-sm-7 col-sm-pull-4">
+
+                <br class="xs-30 sm-0">
+
+                <div class="feature-content">
+                  <h3>Make <b>data-driven</b> decisions.</h3>
+
+                  <p class="lead">Calculate cash flow with the most current data available, automatically. Have confidence in your evaluations.</p>
+				  <a>Learn more</a>
+                </div> <!-- /.feature-content -->
+              </div><!-- /.col -->
+
+            </div> <!-- /.row -->
+
+            </div> <!-- /.container -->
+
+          </div> <!-- /.feature-lg -->
+
+		  <br class="xs-20 sm-80">
+
+          <div class="feature-lg">
+
+            <div class="row alternate_row">
+
+				<div class="container">
+
+              <div class="col-sm-3 col-sm-offset-1">
+                <figure class="feature-figure"><img src="{{ url_for('static', filename='img/investment_goal.png') }}" class="img-responsive landing-page-feature-image-left"  style="width: 90%;" alt=""></figure>
+              </div><!-- /.col -->
+
+              <div class="col-sm-7">
+                <br class="xs-30 sm-0">
+
+                <div class="feature-content">
+                  <h3><b>Compare properties</b> side-by-side</h3>
+
+                  <p class="lead">Easily pick the best investments and share your work with others for a second opinion. See how future investments stack up to the ones you've already made. </p>
+				  <a>Learn more</a>
+                </div> <!-- /.feature-content -->
+              </div><!-- /.col -->
+
+            </div> <!-- /.container -->
+
+            </div> <!-- /.row -->
+
+          </div> <!-- /.feature-lg -->
+
+          <div class="feature-lg figure-right">
+
+            <div class="row final_row">
+
+	            <div class="container">
+
+              <div class="col-sm-6 col-sm-push-6">
+
+				<div id="root" class="auth0-wrap"></div>
+				<script>
+					var options = {
+						container: 'root',
+						auth: {
+							redirectUrl: AUTH0_CALLBACK_URL,
+							responseType: 'code',
+							params: {
+								scope: 'openid email'
+							}
+						},
+						logo: 'https://www.listenmoneymatters.com/wp-content/themes/LMMv4/images/login_header.png',
+						socialButtonStyle: 'big',
+						allowSignUp: true,
+						allowLogin: false
+					}
+					var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, options);
+				   lock.show();
+				</script><br/>
+
+
+              </div><!-- /.col -->
+
+              <div class="col-sm-6 col-sm-pull-6">
+
+                <br class="xs-30 sm-0">
+
+                <div class="feature-content">
+                  <h3>Get started today with a <b>14-day free trial</b>.</h3>
+
+                  <p class="lead">Research and evaluate rental properties.</p>
+                  <ul class="icons-list">
+                    <li>
+                      <i class="icon-li fa fa-check text-green"></i>
+                      Find out if you're getting a good deal and what your costs look like.
+                    </li>
+                    <li>
+                      <i class="icon-li fa fa-check text-green"></i>
+                      View your total investment's value over time.
+                    </li>
+                    <li>
+                      <i class="icon-li fa fa-check text-green"></i>
+                      Simulate worst-case scenarios to see if you're still cash flow positive.
+                    </li>
+                    <li>
+                      <i class="icon-li fa fa-check text-green"></i>
+                      Discover how changes in your mortgage will affect your cash flow.
+                    </li>
+                    <li>
+                      <i class="icon-li fa fa-check text-green"></i>
+                      Member-only podcasts, ebooks, and more.
+                    </li>
+                  </ul>
+                </div> <!-- /.feature-content -->
+              </div><!-- /.col -->
+
+            </div> <!-- /.container -->
+
+            </div> <!-- /.row -->
+
+          </div> <!-- /.feature-lg -->
+
+          </div> <!-- /.container -->
+
+        </section>
+
+    </div> <!-- /.content -->
+
+
+<div class="clearfix"></div>
+
+{% endblock %}

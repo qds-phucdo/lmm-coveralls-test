@@ -1,0 +1,128 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+<div class="content" id="projections-page">
+
+	<div class="container" >
+		<div class="row" id="projections-assumption">
+			<div class="col-md-3 col-nopadding">
+				<div class="col-md-12">
+					<div class="row-stat">
+						<p class="row-stat-label">Estimation Style</p>
+						<div class="dropdown estimation-dropdown">
+							<button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<span class="dr-btn-text">Cash Flow Raw</span>
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+								<li class="active"><a href="javascript:void(0)" onclick="changeCashflowStyle('cashflow')">Cash Flow Raw</a></li>
+								<li><a href="javascript:void(0)" onclick="changeCashflowStyle('medium_cashflow')">Cash Flow After Reserve</a></li>
+								<li><a href="javascript:void(0)" onclick="changeCashflowStyle('long_cashflow')">Cash Flow Less 50%</a></li>
+							</ul>
+						</div>
+					</div> <!-- /.row-stat -->
+				</div> <!-- /.col -->
+			</div>
+			
+			<div class="col-md-9 col-nopadding">
+				<div class="col-sm-6 col-md-3">
+					<div class="row-stat">
+						<p class="row-stat-label">Rent Growth</p>
+						<h3 class="row-stat-value"><span id="lblrentgrowth" class="editable">2.00</span>%</h3>
+					</div> <!-- /.row-stat -->
+				</div> <!-- /.col -->
+				<div class="col-sm-6 col-md-3">
+					<div class="row-stat">
+						<p class="row-stat-label">Appreciation</p>
+						<h3 class="row-stat-value"><span id="lblappreciation" class="editable">3.00</span>%</h3>
+					</div> <!-- /.row-stat -->
+				</div> <!-- /.col -->
+				<div class="col-sm-6 col-md-3">
+					<div class="row-stat">
+						<p class="row-stat-label">Tax Increase</p>
+						<h3 class="row-stat-value"><span id="lbltaxincrease" class="editable">2.00</span>%</h3>
+					</div> <!-- /.row-stat -->
+				</div> <!-- /.col -->
+				<div class="col-sm-6 col-md-3">
+					<div class="row-stat">
+						<p class="row-stat-label">Insurance Increase</p>
+						<h3 class="row-stat-value"><span id="lblinsuranceincrease" class="editable">2.00</span>%</h3>
+					</div> <!-- /.row-stat -->
+				</div> <!-- /.col -->
+			</div>
+		</div>
+		
+		<div class="row investment-wrapper">
+			<div class="col-md-12">
+				<div class="portlet portlet-boxed">
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-6 projections-title yearly-cf-title">Investment Value Over Time</div>
+							<div class="col-md-6">
+								<div class="dropdown invest-dropdown">
+									<button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										<span class="dr-btn-text">30 Years</span>
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										<li data-value="3"><a href="javascript:void(0)" onclick="drawYearlyEquity(equity_chart, 3)">3 Years</a></li>
+										<li data-value="5"><a href="javascript:void(0)" onclick="drawYearlyEquity(equity_chart, 5)">5 Years</a></li>
+										<li data-value="10"><a href="javascript:void(0)" onclick="drawYearlyEquity(equity_chart, 10)">10 Years</a></li>
+										<li data-value="15"><a href="javascript:void(0)" onclick="drawYearlyEquity(equity_chart, 15)">15 Years</a></li>
+										<li data-value="30" class="active"><a href="javascript:void(0)" onclick="drawYearlyEquity(equity_chart, 30)">30 Years</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+						<div id="yearly-equity"></div>
+						<div id="yearly-equity-table">
+							{{ yearly_equity_table|safe }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="portlet portlet-boxed">
+			
+					<div class="portlet-body">
+						<div class="row">
+							<div class="col-md-6 projections-title yearly-cf-title">Cash Flow Over Time</div>
+							<div class="col-md-6">
+								<div class="dropdown projections-dropdown">
+									<button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										<span class="dr-btn-text">30 Years</span>
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										<li data-value="3"><a href="javascript:void(0)" onclick="draw_cash_flow_chart(projections_chart, 3)">3 Years</a></li>
+										<li data-value="5"><a href="javascript:void(0)" onclick="draw_cash_flow_chart(projections_chart, 5)">5 Years</a></li>
+										<li data-value="10"><a href="javascript:void(0)" onclick="draw_cash_flow_chart(projections_chart, 10)">10 Years</a></li>
+										<li data-value="15"><a href="javascript:void(0)" onclick="draw_cash_flow_chart(projections_chart, 15)">15 Years</a></li>
+										<li data-value="30" class="active"><a href="javascript:void(0)" onclick="draw_cash_flow_chart(projections_chart, 30)">30 Years</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+						<div id="stacked-bar"></div>
+						
+						<div id="yearly-cf-table">
+							{{ projections_table|safe }}
+						</div>
+						
+					</div> <!-- /.portlet-body -->
+
+				</div> <!-- /.portlet -->
+			</div>
+		</div>
+		
+	</div> <!-- /.container -->
+
+</div> <!-- .content -->
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "/property/base-property-body.html" %}
+
+{% block content %}
+
+	<div class="content" id="mortgage-page">
+
+		<div class="container" id="container-medium-width">
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<div class="portlet portlet-boxed">
+
+						<div class="portlet-header">
+							<h4 class="portlet-title">
+								Equity, Loan Balance, and Property Value
+							</h4>
+						</div> <!-- /.portlet-header -->
+
+						<div class="portlet-body">
+							<!-- <div id="stacked-area-chart" class="chart-holder"></div> -->
+							<div class="wrap-mortgage">
+								<svg id="mortgage-chart" width="703" height="300"></svg>
+							</div>
+						</div> <!-- /.portlet-body -->
+
+					</div> <!-- /.portlet -->
+				</div> <!-- /.col -->
+        
+				<div class="col-md-4">
+
+					<div class="portlet portlet-boxed">
+
+						<div class="portlet-header">
+							<h4 class="portlet-title">
+								Mortgage Assumptions
+							</h4>
+						</div> <!-- /.portlet-header -->
+
+						<div class="portlet-body {% if p %}property-{{ p.address }}{% endif %}">
+			  
+							<table class="table keyvalue-table">
+								<tbody>
+									<tr>
+										<td class="kv-key kv-header">Down Payment
+											<span class="badge badge-tertiary ui-popover" 
+											data-toggle="tooltip" data-placement="top" data-trigger="hover" 
+											data-original-title="Cash required for financing."
+											data-content="The Down Payment is the amount of cash you contribute to a financing deal. The bank funds the remainder of the purchase price in the form of a mortgage.">?
+											</span>
+										</td>
+										<td class="kv-value kv-header"></td>
+									</tr>
+									<tr>
+										<td class="kv-value kv-footer text-left">$<span id="lbldown_payment_dollar" class="editable">{{ p.mortgage.down_payment_dollar }}</span></td>
+										<td class="kv-value kv-footer"><span id="lbldown_payment_percent" class="editable">{{ p.mortgage.down_payment_percent }}</span>%</td>
+									</tr>
+									<tr>
+										<td class="kv-key kv-header">Mortgage Rate</td>
+										<td class="kv-value kv-header"></td>
+									</tr>
+									<tr>
+										<td class="kv-value kv-footer text-left"><span id="lblrate" class="editable">{{ p.mortgage.rate }}</span>%</td>
+										<td class="kv-value kv-footer"></td>
+									</tr>
+									<tr>
+										<td class="kv-key last-key kv-header">Mortgage Term</td>
+									</tr>
+									<tr>
+										<td class="kv-value last-key kv-footer text-left"><span id="lblterm" class="editable">{{ p.mortgage.term }}</span> years</td>
+										<td class="kv-value last-key kv-footer"></td>
+									</tr>
+								</tbody>
+							</table>
+			  
+						</div> <!-- /.portlet-body -->
+
+					</div> <!-- /.portlet -->
+
+				</div> <!-- /.col -->
+
+			</div> <!-- /.row -->
+
+
+			<div class="row">
+				
+				<div class="col-md-12">
+					<div class="portlet portlet-boxed">
+				
+						<div class="portlet-header">
+							<h4 class="portlet-title">
+								Amortization Schedule
+							</h4>
+						</div> <!-- /.portlet-header -->
+				
+						<div class="portlet-body">
+							<div class="table-responsive">
+								<table class="table table-striped" id="amort-table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Date</th>
+											<th>Prev Balance</th>
+											<th>Payment</th>
+											<th>Interest</th>
+											<th>Principal</th>
+											<th>New Balance</th>
+										</tr>
+									</thead>
+								<tbody id="lblamortization_schedule">
+									{{ p.calc.amortization_schedule|safe }}
+								</tbody>
+								</table>
+							</div>
+
+						</div> <!-- /.portlet-body -->
+
+					</div> <!-- /.portlet -->
+
+				</div> <!-- /.col -->
+
+			</div> <!-- /.row -->
+
+		</div> <!-- /.container -->
+
+	</div> <!-- .content -->
+
+{% endblock %}
+
