@@ -60,9 +60,9 @@ reload(sys)
 app = Flask(__name__)# pylint: disable=invalid-name
 app.config.from_pyfile('src/py/config.py')
 #Config release with sentry
-if os.environ.get('RELEASE_SENTRY') == "PRODUCTION":
-    app.config['SENTRY_CONFIG'] = { 'include_paths': [app.config['SENTRY_PROJECT']],\
-        'release': os.environ['HEROKU_SLUG_COMMIT']}
+
+app.config['SENTRY_CONFIG'] = { 'include_paths': [app.config['SENTRY_PROJECT']],\
+    'release': os.environ['HEROKU_SLUG_COMMIT']}
 
 # Import and run Sentry
 SENTRY = Sentry()
