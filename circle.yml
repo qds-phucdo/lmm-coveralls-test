@@ -7,9 +7,7 @@ test:
       - pip install nose
       - pip install coverage
       - pip install coveralls
-      - nosetests tests/test_stripe.py
-      - nosetests tests/test_zillow.py
-      - nosetests tests/test_housecanary.py
-  post:
-      - coverage run src/*.py
+      - coverage run tests/test_stripe.py
+      - coverage run tests/test_zillow.py
+      - coverage run tests/test_housecanary.py
       - COVERALLS_REPO_TOKEN=ASGvulWutenBLE6p9d8kgTXQwYOl7W1Ni coveralls
