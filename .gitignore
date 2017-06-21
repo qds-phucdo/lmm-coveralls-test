@@ -45,3 +45,4 @@ pip-delete-this-directory.txt
 
 bin
 .coverage
+coverage_html_report

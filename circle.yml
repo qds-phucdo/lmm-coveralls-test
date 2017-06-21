@@ -1,0 +1,6 @@
+test:
+  override:
+      - pip install coverage
+      - pip install coveralls
+      - coverage run --source=tests pmt.py tests
+      - COVERALLS_REPO_TOKEN=ASGvulWutenBLE6p9d8kgTXQwYOl7W1Ni coveralls
