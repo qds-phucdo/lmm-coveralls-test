@@ -10,4 +10,4 @@ test:
       - coverage run tests/test_stripe.py
       - coverage run tests/test_zillow.py
       - coverage run tests/test_housecanary.py
-      - COVERALLS_REPO_TOKEN=ASGvulWutenBLE6p9d8kgTXQwYOl7W1Ni coveralls
+      - coveralls

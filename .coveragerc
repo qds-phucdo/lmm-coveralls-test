@@ -2,7 +2,7 @@
 [run]
 branch = True
 omit = env/*
-        virtualenvs/*
+        /home/ubuntu/virtualenvs/*
         */__init.__py
         src/__init__.py
         src/py/__init__.py
@@ -10,7 +10,7 @@ omit = env/*
 
 [report]
 omit = env/*
-        virtualenvs/*
+        /home/ubuntu/virtualenvs/*
         */__init.__py
         src/__init__.py
         src/py/__init__.py
