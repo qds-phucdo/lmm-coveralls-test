@@ -37,7 +37,6 @@ USERS = [
 #Customer purchase subscription => is_trial = 0
 USERS_PURCHASE = []
 USERS_EXPIRED = []
-
 # pylint: disable=W0232,C1001
 class TestStripe(unittest.TestCase):
     # preparing to test
