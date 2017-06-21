@@ -4,6 +4,7 @@ dependencies:
 
 test:
   override:
+      - pip install nose
       - pip install coverage
       - pip install coveralls
       - nosetests tests/test_stripe.py
