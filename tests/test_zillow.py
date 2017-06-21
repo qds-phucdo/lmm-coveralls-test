@@ -1,5 +1,8 @@
 """Zillow Unittest"""
-
+import os
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import unittest
 from src.py.pg import PGWriter
 from src.py.zillow import (get_zillow_data,

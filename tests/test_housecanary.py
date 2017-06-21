@@ -1,5 +1,8 @@
 """Housecanary Unittest"""
-
+import os
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import unittest
 from src.py.housecanary import (get_housecanary_data)
 from src.py.pg import PGWriter

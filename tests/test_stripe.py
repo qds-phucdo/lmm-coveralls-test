@@ -2,6 +2,8 @@
 import sys
 import os
 import requests
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import unittest
 from src.py.stripes import (get_stripe_data,
                             update_card,
