@@ -11,6 +11,13 @@ import hashlib
 import time
 import sys
 import os
+from os import path
+from os.path import join, dirname
+# from dotenv import load_dotenv
+# dotenv_path = join(path.dirname(path.dirname(path.abspath(__file__))+"/"), '.env')
+# load_dotenv(dotenv_path)
+# sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import urlparse
 
 import redis
