@@ -10,4 +10,5 @@ test:
       - coverage run tests/test_stripe.py
       - coverage run tests/test_zillow.py
       - coverage run tests/test_housecanary.py
+      - coverage pmt.py
       - coveralls
