@@ -1,10 +1,7 @@
 dependencies:
   override:
     - pip install -r requirements.txt
-
-test:
-  override:
-      - pip install coverage
-      - pip install coveralls
-      - coverage run pmt.py
-      - coveralls
+script:
+    - python setup.py install
+after_success:
+    - coveralls
