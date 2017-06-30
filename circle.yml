@@ -4,11 +4,7 @@ dependencies:
 
 test:
   override:
-      - pip install nose
       - pip install coverage
       - pip install coveralls
-      - coverage run tests/test_stripe.py
-      - coverage run tests/test_zillow.py
-      - coverage run tests/test_housecanary.py
-      - coverage pmt.py
+      - coverage run pmt.py
       - coveralls
