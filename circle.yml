@@ -1,7 +1,10 @@
 dependencies:
   override:
     - pip install -r requirements.txt
-script:
-    - python setup.py install
-after_success:
-    - coveralls
+
+test:
+    override:
+      - pip install coverage
+      - pip install coveralls
+      - coverage run src/py/*.py
+      - COVERALLS_REPO_TOKEN=ASGvulWutenBLE6p9d8kgTXQwYOl7W1Ni coveralls
