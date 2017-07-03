@@ -6,21 +6,21 @@ test:
     override:
       - pip install coverage
       - pip install coveralls
-      - coverage run src/py/amort.py
-      - coverage run src/py/config.py
-      - coverage run src/py/helper.py
-      - coverage run src/py/housecanary.py
-      - coverage run src/py/mydates.py
-      - coverage run src/py/pg.py
-      - coverage run src/py/projections.py
-      - coverage run src/py/property_request.py
-      - coverage run src/py/redissession.py
-      - coverage run src/py/stripes.py
-      - coverage run src/py/utils.py
-      - coverage run src/py/zillow.py
-      - coverage run tests/test_stripe.py
-      - coverage run tests/test_zillow.py
-      - coverage run tests/test_housecanary.py
+      - coverage run --parallel-mode src/py/amort.py
+      - coverage run --parallel-mode src/py/config.py
+      - coverage run --parallel-mode src/py/helper.py
+      - coverage run --parallel-mode src/py/housecanary.py
+      - coverage run --parallel-mode src/py/mydates.py
+      - coverage run --parallel-mode src/py/pg.py
+      - coverage run --parallel-mode src/py/projections.py
+      - coverage run --parallel-mode src/py/property_request.py
+      - coverage run --parallel-mode src/py/redissession.py
+      - coverage run --parallel-mode src/py/stripes.py
+      - coverage run --parallel-mode src/py/utils.py
+      - coverage run --parallel-mode src/py/zillow.py
+      - coverage run --parallel-mode tests/test_stripe.py
+      - coverage run --parallel-mode tests/test_zillow.py
+      - coverage run --parallel-mode tests/test_housecanary.py
     post:
       - coverage combine
       - COVERALLS_REPO_TOKEN=ASGvulWutenBLE6p9d8kgTXQwYOl7W1Ni coveralls
