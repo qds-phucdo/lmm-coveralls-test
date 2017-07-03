@@ -1,18 +1,16 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
-omit = env/*
-        /home/ubuntu/virtualenvs/*
-        */__init.__py
-        src/__init__.py
-        src/py/__init__.py
-        *__init__*
+omit =
+    env/*
+    /home/ubuntu/virtualenvs/*
+
+include =
+    pmt.py
+    src/py/*.py
+
 #parallel = True
 
 [report]
 omit = env/*
         /home/ubuntu/virtualenvs/*
-        */__init.__py
-        src/__init__.py
-        src/py/__init__.py
-        *__init__*
