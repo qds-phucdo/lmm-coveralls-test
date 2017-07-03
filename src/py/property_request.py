@@ -1,6 +1,10 @@
 """Process for get property"""
 import pickle
 # pylint: disable=W0403
+import sys
+import os
+from os import path
+sys.path.append(os.getcwd())
 from zillow import (get_zillow_data)
 from housecanary import (get_housecanary_data)
 from src.py.pg import PGWriter
@@ -52,7 +56,7 @@ def get_property_info(session, address, zpid=0, save_history=True):
 
     # Get HouseCanary Info
     params = {'address': pretty_address[0], 'zipcode': zip_code}
-    
+
     hc_data = get_housecanary_data(address, params)
 
     # Get saved property info for registered users

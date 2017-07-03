@@ -2,6 +2,9 @@
 from math import ceil
 import sys
 #import datetime
+import os
+from os import path
+sys.path.append(os.getcwd())
 # pylint: disable=W0403
 from mydates import (string_from_date,
                      tuple_from_date,

@@ -2,6 +2,9 @@
 import time
 import datetime
 import sys
+import os
+from os import path
+sys.path.append(os.getcwd())
 # pylint: disable=W0403
 from mydates import (date_from_timestamp,
                      string_from_date,

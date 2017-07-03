@@ -14,6 +14,10 @@ Test Addresses:
 
 import os
 import requests
+import sys
+from os import path
+sys.path.append(os.getcwd())
+#sys.path.append('')
 from src.py.pg import PGWriter
 PG = PGWriter()
 

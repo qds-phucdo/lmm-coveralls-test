@@ -1,6 +1,8 @@
 """Stripe Methods"""
 import sys
 import os
+from os import path
+sys.path.append(os.getcwd())
 import time
 import stripe
 from datetime import datetime
@@ -15,12 +17,12 @@ def get_stripe_data(user):
     """Returns the Stripe data for a user"""
 
     stripe.api_key = get_stripe_key(user['request_url'])
-    
+
     # Free user
     if user['access_level'] == "free":
         user['is_trial'] = 0
         return user
-        
+
     # Everyone else
     else:
         # No stripe_id is a new user, otherwise retrieve details from stripe
@@ -29,23 +31,23 @@ def get_stripe_data(user):
             PG.update_stripeid_and_trial_flag(user['email'], customer.id)
         else:
             customer = retrive_customer(stripe, user['stripe_id'])
-            
+
         subscriptions = customer.subscriptions.all()
-        
+
         # This should pretty much always be true.
         if subscriptions.data:
             status = subscriptions.data[0].status
             plan_id = subscriptions.data[0].plan.id
             plan_amount = subscriptions.data[0].plan.amount
-            
+
             # New user trial
-            if status == "trialing":    
-                sell_to = "true" 
+            if status == "trialing":
+                sell_to = "true"
                 period_end = customer.subscriptions.data[0].current_period_end
                 trial_end = datetime.fromtimestamp(int(period_end))
                 day = time.strftime("%d", time.localtime(int(period_end)))
                 month = time.strftime("%b", time.localtime(int(period_end)))
-                
+
             # Paying customer
             else:
                 sell_to = "false"
@@ -53,7 +55,7 @@ def get_stripe_data(user):
                 trial_end = created
                 day = datetime.fromtimestamp(int(created)).strftime('%d')
                 month = datetime.fromtimestamp(int(created)).strftime('%B')
-        
+
         # To catch canceled users
         else:
             status = 'trialing'
@@ -72,7 +74,7 @@ def get_stripe_data(user):
             'trial_end': trial_end,
             'sell_to': sell_to,
             'status': status,
-            'subscription': { 
+            'subscription': {
                 'month': month,
                 'day': day + get_suffix(day),
                 'plan': {
@@ -84,7 +86,7 @@ def get_stripe_data(user):
         user.update(user_stripe)
 
         return user
-        
+
     # This should really never happen
     return None
 
@@ -234,5 +236,5 @@ def get_suffix(day):
         suffix = "th"
     else:
         suffix = ["st", "nd", "rd"][int(day) % 10 - 1]
-        
+
     return suffix

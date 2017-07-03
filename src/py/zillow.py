@@ -2,6 +2,10 @@
 import urllib
 import urllib3
 import xmltodict
+import sys
+import os
+from os import path
+sys.path.append(os.getcwd())
 from src.py.helper import (clean_result)
 from src.py.pg import PGWriter
 PG = PGWriter()

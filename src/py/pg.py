@@ -3,7 +3,10 @@
 from datetime import datetime, timedelta
 import urlparse
 import pickle
+import sys
 import os
+from os import path
+sys.path.append(os.getcwd())
 import psycopg2
 import psycopg2.extras
 
