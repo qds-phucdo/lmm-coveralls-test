@@ -5,11 +5,7 @@ omit =
     env/*
     /home/ubuntu/virtualenvs/*
 
-include =
-    pmt.py
-    src/py/*.py
-
-#parallel = True
+parallel = True
 
 [report]
 omit = env/*
