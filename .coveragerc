@@ -4,7 +4,7 @@ branch = True
 
 include =
     src/py/*.py
-    test/*.py
+    tests/*.py
 
 omit =
     env/*
