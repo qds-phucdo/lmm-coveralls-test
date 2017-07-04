@@ -1,6 +1,11 @@
 # .coveragerc to control coverage.py
 [run]
 branch = True
+
+include =
+    src/py/*.py
+    test/*.py
+
 omit =
     env/*
     /home/ubuntu/virtualenvs/*
