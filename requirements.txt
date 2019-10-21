@@ -25,6 +25,6 @@ redis==2.10.5
 requests==2.5.1
 stripe==1.37.0
 urllib3==1.7.1
-Werkzeug==0.11.11
+Werkzeug==0.15.3
 WTForms==2.1
 xmltodict==0.10.2
